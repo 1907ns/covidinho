@@ -53,7 +53,7 @@
             </li>
         </ul>
 
-        <form class="form-inline my-2 my-lg-0" action="#" method="get">
+        <form class="form-inline my-2 my-lg-0" action="SearchUserServlet" method="get">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" id="searcheduser" name="searcheduser" aria-label="Search">
             <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
         </form>

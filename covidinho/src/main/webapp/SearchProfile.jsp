@@ -2,19 +2,19 @@
   Created by IntelliJ IDEA.
   User: enescobar
   Date: 28/12/2021
-  Time: 11:26
+  Time: 20:03
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User user = (User) request.getSession().getAttribute("user");
     if(user == null) {
         response.sendRedirect("Login.jsp");
     }else{
 %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Mon profil</title>
+    <title>Accueil</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -23,7 +23,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Covidinho</a>
+    <a class="navbar-brand" href="Home.jsp">Covidinho</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,17 +31,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="Home.jsp">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="Home.jsp">Home </a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="LogoutServlet">Se déconnecter</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Actions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Mon profil</a>
+                    <a class="dropdown-item" href="MyProfile.jsp">Mon profil</a>
                     <a class="dropdown-item" href="#">Mes amis</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Mes notifications</a>
@@ -59,56 +59,55 @@
         </form>
     </div>
 </nav>
-<h1 class="text-center title">Mon profil</h1>
+
 <div class="container">
-    <form action="ProfileModificationServlet" method="post" class="justify-content-center">
-        <div class="form-group hide">
-            <input type="hidden" type="text" class="form-control" id="userid"  value="<%=user.getId()%>" name="userid">
-        </div>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username"  value="<%=user.getUsername()%>" name="username" required="" placeholder="Enter username">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" value="<%=user.getPassword()%>" name="password" required="" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="firstname">Firstname</label>
-            <input type="text" class="form-control" pattern="[A-Z a-z]*" id="firstname"  value="<%=user.getFirstname()%>" name="firstname" required="" placeholder="Enter firstname">
-        </div>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" pattern="[A-Z a-z]*" value="<%=user.getName()%>" name="name" placeholder="Enter name" required="">
-        </div>
-        <button type="submit" class="btn btn-primary">Modifier</button>
-    </form>
 
-    <br>
+
+    <%
+        User searchedUser = (User) request.getSession().getAttribute("searcheduser");
+
+        if(searchedUser != null){
+
+    %>
+    <h3 class="text-center title"><%= searchedUser.getUsername()%></h3>
+    <div class="d-flex justify-content-center">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info">Nom: <%= searchedUser.getName()%></li>
+            <li class="list-group-item list-group-item-info">Prénom: <%= searchedUser.getFirstname()%></li>
+            <li class="list-group-item list-group-item-info">Date de naissance: <%= searchedUser.getBirthdate()%></li>
+            <% if (user.getId() != searchedUser.getId()) {%>
+            <li class="list-group-item list-group-item-info"><a class="btn btn-dark" href="#" role="button">Ajouter en ami</a></li>
+            <% }else { %>
+            <li class="list-group-item list-group-item-info "><a class="btn btn-dark disabled" href="#" role="button" >Ajouter en ami</a></li>
+            <% } %>
+        </ul>
+    </div>
+
+    <% } else { %>
+    <div class="d-flex justify-content-center">
         <% String error = (String)request.getAttribute("errMessage");
-
+            String success = (String)request.getAttribute("succMessage");
             if(error!=null)
             {
-            %>
-    <div class='alert alert-danger' role='alert'>
+        %>
+        <div class='alert alert-danger' role='alert'>
             <%= error %>
-        <div/>
-            <% } %>
-        <!----------------------------------------------------------------------------->
-            <% String success = (String)request.getAttribute("succMessage");
-            if(success!=null)
-            {
-            %>
+        </div>
+        <% } else if (success != null){ %>
+
         <div class='alert alert-success' role='alert'>
             <%= success %>
-            <div/>
-            <% } %>
-
         </div>
+        <% } %>
+    </div>
+    <% } %>
+</div>
 </body>
 </html>
 
 <%
+        request.getSession().setAttribute("exSearchedUser", searchedUser); //on met l'user recherché dans une var temporaire au cas où pour l'ajout en ami
+        request.getSession().setAttribute("searcheduser", null);
     }
 %>
 

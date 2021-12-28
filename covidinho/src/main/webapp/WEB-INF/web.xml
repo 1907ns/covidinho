@@ -39,5 +39,13 @@
         <servlet-name>ProfileModificationServlet</servlet-name>
         <url-pattern>/ProfileModificationServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.SearchUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <url-pattern>/SearchUserServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>
