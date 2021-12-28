@@ -12,6 +12,7 @@
         response.sendRedirect("Login.jsp");
     }else{
 %>
+
 <html>
 <head>
     <title>Accueil</title>
@@ -44,7 +45,7 @@
                     <a class="dropdown-item" href="MyProfile.jsp">Mon profil</a>
                     <a class="dropdown-item" href="#">Mes amis</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Mes notifications</a>
+                    <a class="dropdown-item" href="NotificationServlet">Mes notifications</a>
                     <a class="dropdown-item" href="#">Mes activités</a>
                 </div>
             </li>
@@ -76,9 +77,9 @@
             <li class="list-group-item list-group-item-info">Prénom: <%= searchedUser.getFirstname()%></li>
             <li class="list-group-item list-group-item-info">Date de naissance: <%= searchedUser.getBirthdate()%></li>
             <% if (user.getId() != searchedUser.getId()) {%>
-            <li class="list-group-item list-group-item-info"><a class="btn btn-dark" href="#" role="button">Ajouter en ami</a></li>
+            <li class="list-group-item list-group-item-info"><a class="btn btn-dark" href="SendFriendRequestServlet" role="button">Ajouter en ami</a></li>
             <% }else { %>
-            <li class="list-group-item list-group-item-info "><a class="btn btn-dark disabled" href="#" role="button" >Ajouter en ami</a></li>
+            <li class="list-group-item list-group-item-info "><a class="btn btn-dark disabled" href="SendFriendRequestServlet" role="button" >Ajouter en ami</a></li>
             <% } %>
         </ul>
     </div>

@@ -23,7 +23,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Covidinho</a>
+    <a class="navbar-brand" href="Home.jsp">Covidinho</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -44,7 +44,7 @@
                     <a class="dropdown-item" href="#">Mon profil</a>
                     <a class="dropdown-item" href="#">Mes amis</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Mes notifications</a>
+                    <a class="dropdown-item" href="NotificationServlet">Mes notifications</a>
                     <a class="dropdown-item" href="#">Mes activités</a>
                 </div>
             </li>
