@@ -74,7 +74,7 @@
         for(Friendship f : listeAmis){
      %>
 
-                <li class="list-group-item list-group-item-info"><%=f.getFriendUsername()%> <a class="btn btn-info" href="#" role="button">Supprimer</a></li>
+                <li class="list-group-item list-group-item-info"><%=f.getFriendUsername()%> <a class="btn btn-info" href="DeleteFriendServlet?iduser1=<%=f.getIdUser1()%>&iduser2=<%=f.getIdUser2()%>" role="button">Supprimer</a></li>
 
             <% }
 
@@ -83,6 +83,24 @@
             <p> Vous n'avez pas d'amis.</p>
         </div>
             <% } %>
+
+</div>
+
+<div class="d-flex justify-content-center">
+    <% String error = (String)request.getAttribute("errMessage");
+        String success = (String)request.getAttribute("succMessage");
+        if(error!=null)
+        {
+    %>
+    <div class='alert alert-danger' role='alert'>
+        <%= error %>
+    </div>
+    <% } else if (success != null){ %>
+
+    <div class='alert alert-success' role='alert'>
+        <%= success %>
+    </div>
+    <% } %>
 </div>
 </body>
 </html>

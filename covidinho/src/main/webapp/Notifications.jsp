@@ -90,6 +90,24 @@
     </div>
 <% } %>
 </div>
+
+<div class="d-flex justify-content-center">
+    <% String error = (String)request.getAttribute("errMessage");
+        String success = (String)request.getAttribute("succMessage");
+        if(error!=null)
+        {
+    %>
+    <div class='alert alert-danger' role='alert'>
+        <%= error %>
+    </div>
+    <% } else if (success != null){ %>
+
+    <div class='alert alert-success' role='alert'>
+        <%= success %>
+    </div>
+    <% } %>
+</div>
+
 </body>
 </html>
 

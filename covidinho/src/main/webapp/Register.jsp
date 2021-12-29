@@ -55,7 +55,7 @@
             %>
     <div class='alert alert-danger' role='alert'>
             <%= error %>
-        <div/>
+        </div>
             <% } %>
         <!----------------------------------------------------------------------------->
             <% String success = (String)request.getAttribute("succMessage");
@@ -64,15 +64,12 @@
             %>
         <div class='alert alert-success' role='alert'>
             <%= success %>
-            <div/>
+            </div>
             <% } %>
+    <p> Déjà un Compte? <a href="Login.jsp">Connectez-vous!</a></p>
 
+    </div>
 
-
-        </div>
-        <div class="container">
-            <p> Déjà un Compte? <a href="Login.jsp">Connectez-vous!</a></p>
-        </div>
 </body>
 </html>
 
