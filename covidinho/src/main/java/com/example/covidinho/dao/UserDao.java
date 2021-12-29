@@ -30,7 +30,6 @@ public class UserDao {
         try
         {
             con = DBConnector.createConnection();
-            System.out.println(con);
             String query = "insert into users(login,password,firstname,name, birthdate,admin,is_positive) values (?,?,?,?,?,?,?)"; //Insert user details into the table 'USERS'
             preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
             preparedStatement.setString(1, username);
@@ -110,7 +109,6 @@ public class UserDao {
                 statement.setInt(1, id);
                 ResultSet result = statement.executeQuery();
                 if (result.next()) {
-                    System.out.println(password);
                     user = new User();
                     user.setId(result.getInt("id"));
                     user.setName(result.getString("name"));
@@ -149,6 +147,30 @@ public class UserDao {
             user.setName(result.getString("name"));
             user.setFirstname(result.getString("firstname"));
             user.setUsername(username);
+            user.setBirthdate(String.valueOf(result.getDate("birthdate")));
+        }
+
+        connection.close();
+
+        return user;
+
+    }
+
+    public User getUserById (int id) throws SQLException {
+        Connection connection = DBConnector.createConnection();
+        String sql = "SELECT * FROM users WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+
+        ResultSet result = statement.executeQuery();
+        User user = null;
+
+        if (result.next()) {
+            user = new User();
+            user.setId(id);
+            user.setName(result.getString("name"));
+            user.setFirstname(result.getString("firstname"));
+            user.setUsername(result.getString("login"));
             user.setBirthdate(String.valueOf(result.getDate("birthdate")));
         }
 

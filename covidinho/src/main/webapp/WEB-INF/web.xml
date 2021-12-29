@@ -67,4 +67,31 @@
         <url-pattern>/NotificationServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DeleteNotificationServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.DeleteNotificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteNotificationServlet</servlet-name>
+        <url-pattern>/DeleteNotificationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AcceptFriendServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.AcceptFriendServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AcceptFriendServlet</servlet-name>
+        <url-pattern>/AcceptFriendServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FriendshipsServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.FriendshipsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FriendshipsServlet</servlet-name>
+        <url-pattern>/FriendshipsServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

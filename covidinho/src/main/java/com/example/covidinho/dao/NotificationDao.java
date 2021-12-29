@@ -24,6 +24,7 @@ public class NotificationDao {
             notif.setRead(result.getInt("is_read"));
             notif.setContent(result.getString("content"));
             notif.setType(result.getInt("type"));
+            notif.setSenderId(result.getInt("src_user"));
             notifications.add(notif);
         }
         return notifications;
@@ -85,6 +86,55 @@ public class NotificationDao {
             e.printStackTrace();
         }
 
+
+    }
+
+    public String deleteNotificationById(int notifid) throws SQLException {
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        con = DBConnector.createConnection();
+        String query = "delete from notifications where id = ?";  // Update notification state
+        preparedStatement = con.prepareStatement(query);
+        preparedStatement.setInt(1, notifid);
+        try{
+            int i= preparedStatement.executeUpdate();
+            con.close();
+            return "SUCCESS";
+        }catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
+            return "FAILURE";
+        }
+    }
+
+    public String insertFriendResponseNotification(User sender, User receiver) throws SQLException {
+
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        try
+        {
+            con = DBConnector.createConnection();
+
+
+            String query = "insert into notifications(id_user,src_user, type,content,is_read) values (?,?,?,?,?);"; //Insert notification details into the table 'Notifications'
+            preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
+            preparedStatement.setInt(1, receiver.getId());
+            preparedStatement.setInt(2, sender.getId());
+            preparedStatement.setInt(3, 0);
+            preparedStatement.setString(4, sender.getUsername() + " a accepté votre demande d'ami.");
+            preparedStatement.setInt(5, 0);
+            try{
+                int i= preparedStatement.executeUpdate();
+            }catch (SQLIntegrityConstraintViolationException e){
+                return "FAILURE";
+            }
+
+            return "SUCCESS";
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
 
     }
 

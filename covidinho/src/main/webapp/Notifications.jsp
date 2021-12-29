@@ -45,7 +45,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="MyProfile.jsp">Mon profil</a>
-                    <a class="dropdown-item" href="#">Mes amis</a>
+                    <a class="dropdown-item" href="FriendshipsServlet">Mes amis</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Mes notifications</a>
                     <a class="dropdown-item" href="#">Mes activités</a>
@@ -72,15 +72,14 @@
 
     if(listeNotif != null){
         for(Notification n : listeNotif){
-            System.out.println(n.getRead());
             if(n.getRead()==0){
 
 %>
 
-        <li class="list-group-item list-group-item-danger"><%=n.getContent()%> <a class="btn btn-info" href="#" role="button">Supprimer</a> <% if(n.getType()==1) {%> <a class="btn btn-success" href="#" role="button">Accepter</a> <a class="btn btn-danger" href="#" role="button">Refuser</a></li>
+        <li class="list-group-item list-group-item-danger"><%=n.getContent()%> <a class="btn btn-info" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Supprimer</a> <% if(n.getType()==1) {%> <a class="btn btn-success" href="AcceptFriendServlet?notifid=<%=n.getId()%>&idUser1=<%=n.getUserId()%>&idUser2=<%=n.getSenderId()%>" role="button">Accepter</a> <a class="btn btn-danger" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Refuser</a></li>
             <% }%>
             <% } else { %>
-        <li class="list-group-item list-group-item-info"><%=n.getContent()%> <a class="btn btn-info" href="#" role="button">Supprimer</a> <% if(n.getType()==1) {%> <a class="btn btn-success" href="#" role="button">Accepter</a> <a class="btn btn-danger" href="#" role="button">Refuser</a></li>
+        <li class="list-group-item list-group-item-info"><%=n.getContent()%> <a class="btn btn-info" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Supprimer</a> <% if(n.getType()==1) {%> <a class="btn btn-success" href="AcceptFriendServlet?notifid=<%=n.getId()%>&idUser1=<%=n.getUserId()%>&idUser2=<%=n.getSenderId()%>" role="button">Accepter</a> <a class="btn btn-danger" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Refuser</a></li>
             <% }
         }%>
 <% }

@@ -12,7 +12,6 @@ public class DBConnector {
         String url = "jdbc:mysql://localhost:3306/covidinho"; //MySQL URL followed by the database name
         String username = "admin"; //MySQL username
         String password = "password"; //MySQL password
-        System.out.println("In DBConnection.java class ");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {

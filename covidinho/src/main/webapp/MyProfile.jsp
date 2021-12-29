@@ -42,7 +42,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Mon profil</a>
-                    <a class="dropdown-item" href="#">Mes amis</a>
+                    <a class="dropdown-item" href="FriendshipsServlet">Mes amis</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="NotificationServlet">Mes notifications</a>
                     <a class="dropdown-item" href="#">Mes activités</a>

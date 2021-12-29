@@ -1,8 +1,10 @@
-<%@ page import="com.example.covidinho.beans.User" %><%--
+<%@ page import="com.example.covidinho.beans.User" %>
+<%@ page import="com.example.covidinho.beans.Friendship" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
-  Date: 28/12/2021
-  Time: 20:03
+  Date: 29/12/2021
+  Time: 12:25
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,7 +17,7 @@
 
 <html>
 <head>
-    <title>Accueil</title>
+    <title>Mes amis</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -31,8 +33,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="Home.jsp">Home </a>
+            <li class="nav-item active">
+                <a class="nav-link" href="Home.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="LogoutServlet">Se déconnecter</a>
@@ -43,7 +45,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="MyProfile.jsp">Mon profil</a>
-                    <a class="dropdown-item" href="FriendshipsServlet">Mes amis</a>
+                    <a class="dropdown-item" href="#">Mes amis</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="NotificationServlet">Mes notifications</a>
                     <a class="dropdown-item" href="#">Mes activités</a>
@@ -61,54 +63,32 @@
     </div>
 </nav>
 
-<div class="container">
+<h1 class="text-center title">Mes amis</h1>
 
+<div class="d-flex justify-content-center">
+    <ul class="list-group">
+            <%
+    ArrayList<Friendship> listeAmis = (ArrayList<Friendship>) request.getSession().getAttribute("friends");
 
-    <%
-        User searchedUser = (User) request.getSession().getAttribute("searcheduser");
+    if(listeAmis != null){
+        for(Friendship f : listeAmis){
+     %>
 
-        if(searchedUser != null){
+                <li class="list-group-item list-group-item-info"><%=f.getFriendUsername()%> <a class="btn btn-info" href="#" role="button">Supprimer</a></li>
 
-    %>
-    <h3 class="text-center title"><%= searchedUser.getUsername()%></h3>
-    <div class="d-flex justify-content-center">
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-info">Nom: <%= searchedUser.getName()%></li>
-            <li class="list-group-item list-group-item-info">Prénom: <%= searchedUser.getFirstname()%></li>
-            <li class="list-group-item list-group-item-info">Date de naissance: <%= searchedUser.getBirthdate()%></li>
-            <% if (user.getId() != searchedUser.getId()) {%>
-            <li class="list-group-item list-group-item-info"><a class="btn btn-dark" href="SendFriendRequestServlet" role="button">Ajouter en ami</a></li>
-            <% }else { %>
-            <li class="list-group-item list-group-item-info "><a class="btn btn-dark disabled" href="SendFriendRequestServlet" role="button" >Ajouter en ami</a></li>
+            <% }
+
+}else { %>
+        <div class='alert alert-info' role='alert'>
+            <p> Vous n'avez pas d'amis.</p>
+        </div>
             <% } %>
-        </ul>
-    </div>
-
-    <% } else { %>
-    <div class="d-flex justify-content-center">
-        <% String error = (String)request.getAttribute("errMessage");
-            String success = (String)request.getAttribute("succMessage");
-            if(error!=null)
-            {
-        %>
-        <div class='alert alert-danger' role='alert'>
-            <%= error %>
-        </div>
-        <% } else if (success != null){ %>
-
-        <div class='alert alert-success' role='alert'>
-            <%= success %>
-        </div>
-        <% } %>
-    </div>
-    <% } %>
 </div>
 </body>
 </html>
 
 <%
-        request.getSession().setAttribute("exSearchedUser", searchedUser); //on met l'user recherché dans une var temporaire au cas où pour l'ajout en ami
-        request.getSession().setAttribute("searcheduser", null);
+
     }
 %>
 

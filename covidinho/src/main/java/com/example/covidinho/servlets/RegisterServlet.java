@@ -37,7 +37,6 @@ public class RegisterServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(userRegistered);
         if(userRegistered.equals("SUCCESS"))   //On success, you can display a message to user on Home page
         {
             request.setAttribute("succMessage", "Inscription réussie!");
