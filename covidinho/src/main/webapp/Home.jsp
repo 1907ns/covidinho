@@ -50,6 +50,19 @@
                     <a class="dropdown-item" href="#">Mes activités</a>
                 </div>
             </li>
+
+            <% if (user.getAdmin()==1){ %>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                    <a class="dropdown-item" href="admin/AllUsersServlet">Utilisateurs</a>
+                    <a class="dropdown-item" href="FriendshipsServlet">Activités</a>
+                </div>
+            </li>
+            <%} %>
+
             <li>
                 <p class="navbar-text">Bienvenue </p> <b><%= user.getUsername() %></b>
             </li>

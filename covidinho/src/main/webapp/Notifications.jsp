@@ -51,6 +51,18 @@
                     <a class="dropdown-item" href="#">Mes activités</a>
                 </div>
             </li>
+
+            <% if (user.getAdmin()==1){ %>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                    <a class="dropdown-item" href="admin/AllUsersServlet">Utilisateurs</a>
+                    <a class="dropdown-item" href="FriendshipsServlet">Activités</a>
+                </div>
+            </li>
+            <%} %>
             <li>
                 <p class="navbar-text">Bienvenue </p> <b><%= user.getUsername() %></b>
             </li>
@@ -91,15 +103,21 @@
         </tr>
     <% }
         }%>
-<% }
-
-}else { %>
-    <div class='alert alert-info' role='alert'>
-        <p> Vous n'avez pas de notifications.</p>
+<% } %>
+    </tbody>
+</table>
+    </div>
+<%}else { %>
+    <div class="d-flex justify-content-center">
+        <div class='alert alert-info' role='alert'>
+            <p> Vous n'avez pas de notifications.</p>
+        </div>
     </div>
 <% } %>
-</div>
 
+
+
+</div>
 <div class="d-flex justify-content-center">
     <% String error = (String)request.getAttribute("errMessage");
         String success = (String)request.getAttribute("succMessage");
@@ -115,7 +133,6 @@
         <%= success %>
     </div>
     <% } %>
-</div>
 </div>
 </body>
 </html>

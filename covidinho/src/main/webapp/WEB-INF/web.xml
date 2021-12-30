@@ -103,4 +103,33 @@
         <url-pattern>/ActivityServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AllUsersServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AllUsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllUsersServlet</servlet-name>
+        <url-pattern>/admin/AllUsersServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.DeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <url-pattern>/admin/DeleteUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Filtres -->
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.example.covidinho.filters.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

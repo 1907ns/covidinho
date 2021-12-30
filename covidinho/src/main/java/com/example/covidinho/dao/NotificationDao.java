@@ -171,5 +171,36 @@ public class NotificationDao {
     }
 
 
+    public Notification getFriendRequest(int senderid, int receiverid) throws SQLException {
+
+        Connection connection = DBConnector.createConnection();
+        String sql = "SELECT * FROM notifications WHERE id_user=? and src_user=? and type=?";
+
+        // on vérifie la relation x ----> y
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, senderid);
+        statement.setInt(2, receiverid);
+        statement.setInt(3, 1);
+
+        // on vérifie la relation y -----> x
+        PreparedStatement statement2 = connection.prepareStatement(sql);
+        statement2.setInt(1, receiverid);
+        statement2.setInt(2, senderid);
+        statement2.setInt(3, 1);
+
+        ResultSet result = statement.executeQuery();
+        ResultSet result2 = statement2.executeQuery();
+        if(result.next()){
+            Notification notif = new Notification();
+            notif.setId(result.getInt("id"));
+            return notif;
+        }else if (result2.next()){
+            Notification notif = new Notification();
+            notif.setId(result2.getInt("id"));
+            return notif;
+        }
+        return null;
+    }
+
 }
 

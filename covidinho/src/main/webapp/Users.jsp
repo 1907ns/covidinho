@@ -1,23 +1,22 @@
 <%@ page import="com.example.covidinho.beans.User" %>
-<%@ page import="com.example.covidinho.beans.Friendship" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.covidinho.dao.UserDao" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
-  Date: 29/12/2021
-  Time: 12:25
+  Date: 30/12/2021
+  Time: 16:57
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User user = (User) request.getSession().getAttribute("user");
     if(user == null) {
         response.sendRedirect("Login.jsp");
     }else{
 %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Mes amis</title>
+    <title>Accueil</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -34,37 +33,34 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="Home.jsp">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="../LoginServlet">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="LogoutServlet">Se déconnecter</a>
+                <a class="nav-link" href="../LogoutServlet">Se déconnecter</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Actions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="MyProfile.jsp">Mon profil</a>
-                    <a class="dropdown-item" href="#">Mes amis</a>
+                    <a class="dropdown-item" href="../MyProfile.jsp">Mon profil</a>
+                    <a class="dropdown-item" href="../FriendshipsServlet">Mes amis</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="NotificationServlet">Mes notifications</a>
+                    <a class="dropdown-item" href="../NotificationServlet">Mes notifications</a>
                     <a class="dropdown-item" href="#">Mes activités</a>
                 </div>
             </li>
-
             <% if (user.getAdmin()==1){ %>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Admin
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarAdmin">
-                    <a class="dropdown-item" href="admin/AllUsersServlet">Utilisateurs</a>
-                    <a class="dropdown-item" href="FriendshipsServlet">Activités</a>
+                    <a class="dropdown-item" href="AllUsersServlet">Utilisateurs</a>
+                    <a class="dropdown-item" href="#">Activités</a>
                 </div>
             </li>
             <%} %>
-
-
             <li>
                 <p class="navbar-text">Bienvenue </p> <b><%= user.getUsername() %></b>
             </li>
@@ -77,64 +73,58 @@
     </div>
 </nav>
 
-<h1 class="text-center title">Mes amis</h1>
+<h1 class="text-center title">Utilisateurs</h1>
 
 <div class="row justify-content-center">
-    <div class="col-6">
-        <table class="table table-striped table-dark table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Ami</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div class="col-auto">
+        <table class="table table-striped table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Utilisateur</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
                 <%
-        ArrayList<Friendship> listeAmis = (ArrayList<Friendship>) request.getSession().getAttribute("friends");
+        ArrayList<User> listeUsers = (ArrayList<User>) request.getSession().getAttribute("allusers");
 
-        if(listeAmis.size()!=0){
-            for(Friendship f : listeAmis){
-         %>
+        if(listeUsers.size()!=0){
+            for(User u : listeUsers){
 
-                <tr>
-                    <td><%=f.getFriendUsername()%></td><td><a class="btn btn-info" href="DeleteFriendServlet?iduser1=<%=f.getIdUser1()%>&iduser2=<%=f.getIdUser2()%>" role="button">Supprimer</a></td>
-                </tr>
-
-                <% }
 
     %>
-        </tbody>
-        </table>
+            <tr class="table-info"><td><%=u.getUsername()%></td><td> <%if (u.getAdmin()==1){
+                %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <%}%><a class="btn btn-success" href="ModifyUserServlet?userid=<%=u.getId()%>" role="button">Modifier</a> </td>
+            </tr>
 
-        <% }else { %>
-                <div class='alert alert-info' role='alert'>
-                    <p> Vous n'avez pas d'amis.</p>
-                </div>
-                    <% } %>
-    </div>
-</div>
 
-<div class="d-flex justify-content-center">
-    <% String error = (String)request.getAttribute("errMessage");
-        String success = (String)request.getAttribute("succMessage");
-        if(error!=null)
-        {
-    %>
-    <div class='alert alert-danger' role='alert'>
-        <%= error %>
+                <% } }else { %>
+            <div class='alert alert-info' role='alert'>
+                <p> Il n'y a aucun utilisateur sur la plateforme.</p>
+            </div>
+                <% } %>
     </div>
-    <% } else if (success != null){ %>
 
-    <div class='alert alert-success' role='alert'>
-        <%= success %>
+    <div class="d-flex justify-content-center">
+        <% String error = (String)request.getAttribute("errMessage");
+            String success = (String)request.getAttribute("succMessage");
+            if(error!=null)
+            {
+        %>
+        <div class='alert alert-danger' role='alert'>
+            <%= error %>
+        </div>
+        <% } else if (success != null){ %>
+
+        <div class='alert alert-success' role='alert'>
+            <%= success %>
+        </div>
+        <% } %>
     </div>
-    <% } %>
 </div>
 </body>
 </html>
 
 <%
-
     }
 %>
-

@@ -93,4 +93,38 @@ public class FriendshipDao {
     }
 
 
+    public Friendship getOneFriendship(int idUser1, int idUser2) throws SQLException {
+        Connection con = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
+        con = DBConnector.createConnection();
+
+
+        // insert new friendship relation x --> y
+        String query1 = "select * from friendships where id_user1=? and id_user2=?";
+        preparedStatement1 = con.prepareStatement(query1);
+        preparedStatement1.setInt(1, idUser1);
+        preparedStatement1.setInt(2, idUser2);
+
+        // insert new friendship relation y --> x
+        preparedStatement2 = con.prepareStatement(query1);
+        preparedStatement2.setInt(1, idUser2);
+        preparedStatement2.setInt(2, idUser1);
+        ResultSet result = preparedStatement1.executeQuery();
+        ResultSet result2 = preparedStatement2.executeQuery();
+        if(result.next()){
+            Friendship friendship = new Friendship();
+            friendship.setIdUser1(result.getInt("id_user1"));
+            friendship.setIdUser2(result.getInt("id_user2"));
+            return friendship;
+        }else if (result2.next()){
+            Friendship friendship = new Friendship();
+            friendship.setIdUser1(result2.getInt("id_user1"));
+            friendship.setIdUser2(result2.getInt("id_user2"));
+            return friendship;
+        }
+        return null;
+    }
+
+
 }

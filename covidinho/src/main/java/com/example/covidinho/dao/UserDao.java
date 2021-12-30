@@ -9,6 +9,7 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -192,6 +193,98 @@ public class UserDao {
         }catch (NoSuchAlgorithmException e){
             Logger.getLogger("SHA-1").log(Level.SEVERE, null, e);
             return null;
+        }
+    }
+
+    public ArrayList<User> getAllUsers() throws SQLException {
+        Connection connection = DBConnector.createConnection();
+        String sql = "SELECT * FROM users";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet result = statement.executeQuery();
+        ArrayList <User> userList = new ArrayList<>();
+        while (result.next()) {
+            User user = new User();
+            user.setId(result.getInt("id"));
+            user.setName(result.getString("name"));
+            user.setFirstname(result.getString("firstname"));
+            user.setUsername(result.getString("login"));
+            user.setBirthdate(String.valueOf(result.getDate("birthdate")));
+            user.setAdmin(result.getInt("admin"));
+            userList.add(user);
+        }
+        connection.close();
+        return userList;
+    }
+
+    public String deleteUserById(int userId) throws SQLException {
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        con = DBConnector.createConnection();
+        String query = "delete from users where id = ?";  // Update notification state
+        preparedStatement = con.prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+        try{
+            deleteOneUserFriendships(userId);
+            deleteOneUserNotifications(userId);
+            deleteOneUserActivities(userId);
+            int i= preparedStatement.executeUpdate();
+            con.close();
+            return "SUCCESS";
+        }catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
+            return "FAILURE";
+        }
+    }
+
+
+    public void deleteOneUserFriendships(int userId) throws SQLException {
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        con = DBConnector.createConnection();
+        String query = "delete from friendships where id_user1 = ? or id_user2= ?";  // Update notification state
+        preparedStatement = con.prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.setInt(2, userId);
+        try{
+            int i= preparedStatement.executeUpdate();
+            con.close();
+
+        }catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteOneUserNotifications(int userId) throws SQLException {
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        con = DBConnector.createConnection();
+        String query = "delete from notifications where id_user = ? or src_user= ?";
+        preparedStatement = con.prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.setInt(2, userId);
+        try{
+            int i= preparedStatement.executeUpdate();
+            con.close();
+
+        }catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteOneUserActivities(int userId) throws  SQLException{
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        con = DBConnector.createConnection();
+        String query = "delete from activities where id_user = ?";
+        preparedStatement = con.prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+
+        try{
+            int i= preparedStatement.executeUpdate();
+            con.close();
+
+        }catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
         }
     }
 }
