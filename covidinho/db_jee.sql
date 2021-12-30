@@ -19,9 +19,10 @@ CREATE TABLE `friendships` (
 CREATE TABLE `notifications` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `id_user` int,
+  `src_user` int,
   `type` int NOT NULL,
   `content` varchar(255) NOT NULL,
-  `read` boolean NOT NULL
+  `is_read` boolean NOT NULL
 );
 
 CREATE TABLE `activities` (
@@ -37,5 +38,7 @@ ALTER TABLE `friendships` ADD FOREIGN KEY (`id_user1`) REFERENCES `users` (`id`)
 ALTER TABLE `friendships` ADD FOREIGN KEY (`id_user2`) REFERENCES `users` (`id`);
 
 ALTER TABLE `notifications` ADD FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+
+ALTER TABLE `notifications` ADD FOREIGN KEY (`src_user`) REFERENCES `users` (`id`);
 
 ALTER TABLE `activities` ADD FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);

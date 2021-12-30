@@ -1,4 +1,8 @@
-<%@ page import="com.example.covidinho.beans.User" %><%--
+<%@ page import="com.example.covidinho.beans.User" %>
+<%@ page import="com.example.covidinho.beans.Notification" %>
+<%@ page import="com.example.covidinho.dao.NotificationDao" %>
+<%@ page import="com.example.covidinho.dao.FriendshipDao" %>
+<%@ page import="com.example.covidinho.beans.Friendship" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
   Date: 28/12/2021
@@ -49,6 +53,19 @@
                     <a class="dropdown-item" href="#">Mes activités</a>
                 </div>
             </li>
+
+            <% if (user.getAdmin()==1){ %>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                    <a class="dropdown-item" href="admin/AllUsersServlet">Utilisateurs</a>
+                    <a class="dropdown-item" href="FriendshipsServlet">Activités</a>
+                </div>
+            </li>
+            <%} %>
+
             <li>
                 <p class="navbar-text">Bienvenue </p> <b><%= user.getUsername() %></b>
             </li>
@@ -65,10 +82,13 @@
 
 
     <%
-        User searchedUser = (User) request.getSession().getAttribute("searcheduser");
+        User searchedUser = (User) request.getSession().getAttribute("searcheduser"); // l'utilisateur recherché
 
         if(searchedUser != null){
-
+            NotificationDao notificationDao = new NotificationDao();
+            Notification friendRequestNotif = notificationDao.getFriendRequest(searchedUser.getId(), user.getId());
+            FriendshipDao friendshipDao = new FriendshipDao();
+            Friendship friendship = friendshipDao.getOneFriendship(searchedUser.getId(), user.getId());
     %>
     <h3 class="text-center title"><%= searchedUser.getUsername()%></h3>
     <div class="d-flex justify-content-center">
@@ -76,10 +96,14 @@
             <li class="list-group-item list-group-item-info">Nom: <%= searchedUser.getName()%></li>
             <li class="list-group-item list-group-item-info">Prénom: <%= searchedUser.getFirstname()%></li>
             <li class="list-group-item list-group-item-info">Date de naissance: <%= searchedUser.getBirthdate()%></li>
-            <% if (user.getId() != searchedUser.getId()) {%>
+            <% if (user.getId() != searchedUser.getId() && friendship == null && friendRequestNotif == null) {%>
             <li class="list-group-item list-group-item-info"><a class="btn btn-dark" href="SendFriendRequestServlet" role="button">Ajouter en ami</a></li>
-            <% }else { %>
+            <% }else if (user.getId() == searchedUser.getId()){ %>
             <li class="list-group-item list-group-item-info "><a class="btn btn-dark disabled" href="SendFriendRequestServlet" role="button" >Ajouter en ami</a></li>
+            <% }else if(friendRequestNotif != null){ %>
+            <li class="list-group-item list-group-item-info "><a class="btn btn-dark disabled" href="SendFriendRequestServlet" role="button" >En attente de réponse</a></li>
+            <% }else if(friendship != null){ %>
+            <li class="list-group-item list-group-item-info "><a class="btn btn-dark disabled" href="SendFriendRequestServlet" role="button" >Est déjà votre ami</a></li>
             <% } %>
         </ul>
     </div>

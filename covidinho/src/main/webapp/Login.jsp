@@ -11,7 +11,7 @@
 <%
     User user = (User) request.getSession().getAttribute("user");
     if(user != null) {
-        response.sendRedirect("LogoutServlet");
+        response.sendRedirect("LoginServlet");
     }else{
 %>
 <html>

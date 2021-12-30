@@ -48,7 +48,7 @@ public class AcceptFriendServlet extends HttpServlet {
             }
             else   //On Failure, display a meaningful message to the User.
             {
-                System.out.println("erreur");
+
                 request.setAttribute("errMessage", "Erreur lors du processus.");
                 request.getRequestDispatcher("/Notifications.jsp").forward(request, response);
                 response.sendRedirect("Notifications.jsp");
