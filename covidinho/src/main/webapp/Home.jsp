@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ page import="com.example.covidinho.beans.User" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
@@ -54,29 +55,74 @@
             </li>
         </ul>
 
-        <form class="form-inline my-2 my-lg-0" action="SearchUserServlet" method="get">
+        <form class="form-inline my-2 my-lg-0" id="form" action="SearchUserServlet" method="get">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" id="searcheduser" name="searcheduser" aria-label="Search">
             <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
 </nav>
 <div class="container">
-    <div class="row">
-        <div class="col-8">
-            <form action="ActivityServlet" method="post" class="justify-content-center">
-                <div class="mb-3">
-                    <label for="adress" class="form-label">Adresse</label>
-                    <input class="form-control adress" type="text" id="adress" name="adresse" autocomplete="off">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-8 bg-primary rounded-lg border-0 border-dark p-3">
+            <div class="form-group row">
+                <div class="col btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-light active">
+                        <input type="radio" id="option1" autocomplete="off"> Adresse
+                    </label>
+                    <label class="btn btn-light">
+                        <input type="radio" id="option2" autocomplete="off"> Coordonnées GPS
+                    </label>
                 </div>
-                <div class="mb-3">
-                    <label for="begining" class="form-label">Horraire de début d'activité</label>
-                    <input type="datetime-local" id="begining" name="begining">
+            </div>
+            <form action="ActivityServlet" method="post">
+                <div class="form-group row" id="place">
+                    <div class="col" >
+                        <label for="adress" class="form-label"><p class="text-white">Adresse</p></label>
+                        <input class="form-control adress" type="text" id="adress" name="adresse" autocomplete="off"/>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="end" class="form-label">Horraire de fin d'activité</label>
-                    <input type="datetime-local" id="end" name="end" disabled="true">
+                <% String errorPlace = (String)request.getAttribute("errPlace");
+                    if(errorPlace!=null) {%>
+                <div class='alert alert-danger' role='alert'>
+                    <%= errorPlace %>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <% } %>
+                <div id="placeFound">
+
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="begining" class="form-label"><p class="text-white">Horaire de début d'activité</p></label>
+                        <input type="datetime-local" id="begining" name="begining">
+                    </div>
+                    <div class="col">
+                        <label for="end" class="form-label"><p class="text-white">Horaire de fin d'activité</p></label>
+                        <input type="datetime-local" id="end" name="end" disabled="true">
+                    </div>
+                </div>
+                <% String errorTimes = (String)request.getAttribute("errTime");
+                    if(errorTimes!=null) {%>
+                <div class='alert alert-danger' role='alert'>
+                    <%= errorTimes %>
+                </div>
+                <% } %>
+                <div class="form-group row ">
+                    <div class="col">
+                        <button type="submit" id="submit" class="btn btn-light btn-lg">Submit</button>
+                    </div>
+                </div>
+                <% String succActivity = (String)request.getAttribute("succActivity");
+                    if(succActivity!=null) {%>
+                <div class='alert alert-success' role='alert'>
+                    <%= succActivity %>
+                </div>
+                <% } %>
+                <% String errActivity = (String)request.getAttribute("errActivity");
+                    if(errActivity!=null) {%>
+                <div class='alert alert-danger' role='alert'>
+                    <%= errActivity %>
+                </div>
+                <% } %>
             </form>
         </div>
         <div class="col-4">
@@ -89,6 +135,16 @@
 </html>
 <script>
 
+    $("#form").on("submit", function (e) {
+        e.preventDefault();
+        var self = $(this);
+        $("#adress").val(encodeURIComponent($("#adress").val()));
+        console.log($("#adress").val())
+        $("#form").off("submit");
+        self.unbind('submit');
+        self.submit();
+    });
+
     $("#begining").change(function (){
         $( "#end" ).prop( "disabled", false );
         $("#end").attr("min", $("#begining").val())
@@ -100,7 +156,54 @@
         }
     })
 
+    $("#option1").change(function () {
+        if($("#option1").val()){
+            $("#place").html("<div class=\"col\" ><label for=\"adress\" class=\"form-label\"><p class=\"text-white\">Adresse</p></label> <input class=\"form-control adress\" type=\"text\" id=\"adress\" name=\"adresse\" autocomplete=\"off\"></div>");
+            $('#placeFound').html("")
+        }
+    })
 
+    $("#option2").change(function () {
+        if($("#option2").val()){
+            $("#place").html("<div class=\"col\"><label for=\"lat\" class=\"form-label\"><p class=\"text-white\">Latitude</p></label> <input class=\"form-control adress\" type=\"number\" id=\"lat\" name=\"lat\" step=\"0.001\"></div><div class=\"col\" ><label for=\"lon\" class=\"form-label\"><p class=\"text-white\">Longitude</p></label> <input class=\"form-control adress\" type=\"number\" id=\"lon\" name=\"lon\" step=\"0.001\"></div><script>enableJqueryForLatAndLong()</\script>");
+            $("#submit").prop('disabled', true);
+        }
+    })
+
+    function fetchPositionFromCoords(lat, lon){
+        fetch("https://api-adresse.data.gouv.fr/reverse/?lat="+lat+"&lon="+lon+"&limit=1").then(function(response) {
+            if(response.ok) {
+                response.json().then(function(json) {
+                    console.log(json);
+                    console.log(json.features.length)
+                    if(json.features.length == 0){
+                        $('#placeFound').html("<p class=\"text-white\">Aucune Correspondance</p>")
+                        $("#submit").prop('disabled', true);
+                    } else{
+                        console.log("elliort")
+                        $('#placeFound').html("<p class=\"text-white\">"+json.features[0].properties.label+"</p>")
+                        $("#submit").prop('disabled', false);
+                    }
+                });
+            } else{
+                $('#placeFound').html("<p class=\"text-white\">Erreur</p>")
+            }
+        });
+    }
+
+    function enableJqueryForLatAndLong(){
+        $('#lat').on('input', function() {
+            if($("#lon").val()!=""){
+                fetchPositionFromCoords($('#lat').val(), $('#lon').val())
+            }
+        });
+
+        $('#lon').on('input', function() {
+            if($("#lat").val()!=""){
+                fetchPositionFromCoords($('#lat').val(), $('#lon').val())
+            }
+        });
+    }
 
     $('.adress').autoComplete({
         formatResult: function (item) {
