@@ -33,9 +33,10 @@ public class ActivityDao {
             try{
                 int i= preparedStatement.executeUpdate();
             }catch (SQLIntegrityConstraintViolationException e){
+                System.out.println("FAILURE");
                 return "FAILURE";
             }
-
+            System.out.println("SUCCESS");
             return "SUCCESS";
         }
         catch(SQLException e)
