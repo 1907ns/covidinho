@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
@@ -59,10 +60,82 @@
         </form>
     </div>
 </nav>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <form action="ActivityServlet" method="post" class="justify-content-center">
+                <div class="mb-3">
+                    <label for="adress" class="form-label">Adresse</label>
+                    <input class="form-control adress" type="text" id="adress" name="adresse" autocomplete="off">
+                </div>
+                <div class="mb-3">
+                    <label for="begining" class="form-label">Horraire de début d'activité</label>
+                    <input type="datetime-local" id="begining" name="begining">
+                </div>
+                <div class="mb-3">
+                    <label for="end" class="form-label">Horraire de fin d'activité</label>
+                    <input type="datetime-local" id="end" name="end" disabled="true">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-4">
+            Afficher si on est comtaminé ou cas contact
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
+<script>
 
+    $("#begining").change(function (){
+        $( "#end" ).prop( "disabled", false );
+        $("#end").attr("min", $("#begining").val())
+        date = Date.parse($( "#end" ).val())
+        if(date != NaN){
+            if(date < Date.parse($( "#begining" ).val())){
+                $("#end").val("")
+            }
+        }
+    })
+
+
+
+    $('.adress').autoComplete({
+        formatResult: function (item) {
+            console.log(item);
+            return {
+                value: item.id,
+                text: item.label,
+                html: [
+                    item.label
+                ]
+            };
+        },
+        resolver: 'custom',
+        events: {
+            search: function (qry, callback) {
+                // let's do a custom ajax call
+                $.ajax(
+                    'https://api-adresse.data.gouv.fr/search/',
+                    {
+                        data: { 'q': qry, 'type':"housenumber"}
+                    }
+                ).done(function (res) {
+                    callback(res.features)
+                });
+            },
+            searchPost: function (resultFromServer) {
+                list = []
+                resultFromServer.forEach(element => list.push(element.properties));
+                console.log(list)
+                return list;
+            }
+        }
+    });
+
+</script>
 <%
     }
 %>
