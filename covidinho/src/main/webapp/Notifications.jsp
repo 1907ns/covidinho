@@ -65,22 +65,31 @@
 
 <h1 class="text-center title">Mes notifications</h1>
 
-<div class="d-flex justify-content-center">
-    <ul class="list-group">
-<%
-    ArrayList<Notification> listeNotif = (ArrayList<Notification>) request.getSession().getAttribute("notifications");
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <table class="table table-striped table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Notification</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+    <%
+        ArrayList<Notification> listeNotif = (ArrayList<Notification>) request.getSession().getAttribute("notifications");
 
-    if(listeNotif != null){
-        for(Notification n : listeNotif){
-            if(n.getRead()==0){
+        if(listeNotif.size()!=0){
+            for(Notification n : listeNotif){
+                if(n.getRead()==0){
 
-%>
-
-        <li class="list-group-item list-group-item-danger"><%=n.getContent()%> <a class="btn btn-info" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Supprimer</a> <% if(n.getType()==1) {%> <a class="btn btn-success" href="AcceptFriendServlet?notifid=<%=n.getId()%>&idUser1=<%=n.getUserId()%>&idUser2=<%=n.getSenderId()%>" role="button">Accepter</a> <a class="btn btn-danger" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Refuser</a></li>
+    %>
+        <tr class="table-danger"><td><%=n.getContent()%></td><td> <a class="btn btn-info" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Supprimer</a> <% if(n.getType()==1) {%> <a class="btn btn-success" href="AcceptFriendServlet?notifid=<%=n.getId()%>&idUser1=<%=n.getUserId()%>&idUser2=<%=n.getSenderId()%>" role="button">Accepter</a> <a class="btn btn-danger" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Refuser</a></td>
+        </tr>
             <% }%>
             <% } else { %>
-        <li class="list-group-item list-group-item-info"><%=n.getContent()%> <a class="btn btn-info" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Supprimer</a> <% if(n.getType()==1) {%> <a class="btn btn-success" href="AcceptFriendServlet?notifid=<%=n.getId()%>&idUser1=<%=n.getUserId()%>&idUser2=<%=n.getSenderId()%>" role="button">Accepter</a> <a class="btn btn-danger" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Refuser</a></li>
-            <% }
+        <tr class="table-info"><td><%=n.getContent()%></td> <td> <a class="btn btn-info" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Supprimer</a> <% if(n.getType()==1) {%> <a class="btn btn-success" href="AcceptFriendServlet?notifid=<%=n.getId()%>&idUser1=<%=n.getUserId()%>&idUser2=<%=n.getSenderId()%>" role="button">Accepter</a> <a class="btn btn-danger" href="DeleteNotificationServlet?notifid=<%=n.getId()%>" role="button">Refuser</a></td>
+        </tr>
+    <% }
         }%>
 <% }
 
@@ -107,7 +116,7 @@
     </div>
     <% } %>
 </div>
-
+</div>
 </body>
 </html>
 

@@ -65,25 +65,37 @@
 
 <h1 class="text-center title">Mes amis</h1>
 
-<div class="d-flex justify-content-center">
-    <ul class="list-group">
-            <%
-    ArrayList<Friendship> listeAmis = (ArrayList<Friendship>) request.getSession().getAttribute("friends");
+<div class="row justify-content-center">
+    <div class="col-6">
+        <table class="table table-striped table-dark table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Ami</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+                <%
+        ArrayList<Friendship> listeAmis = (ArrayList<Friendship>) request.getSession().getAttribute("friends");
 
-    if(listeAmis != null){
-        for(Friendship f : listeAmis){
-     %>
+        if(listeAmis.size()!=0){
+            for(Friendship f : listeAmis){
+         %>
 
-                <li class="list-group-item list-group-item-info"><%=f.getFriendUsername()%> <a class="btn btn-info" href="DeleteFriendServlet?iduser1=<%=f.getIdUser1()%>&iduser2=<%=f.getIdUser2()%>" role="button">Supprimer</a></li>
+                <tr>
+                    <td><%=f.getFriendUsername()%></td><td><a class="btn btn-info" href="DeleteFriendServlet?iduser1=<%=f.getIdUser1()%>&iduser2=<%=f.getIdUser2()%>" role="button">Supprimer</a></td>
+                </tr>
 
-            <% }
+                <% }
 
-}else { %>
-        <div class='alert alert-info' role='alert'>
-            <p> Vous n'avez pas d'amis.</p>
-        </div>
-            <% } %>
-
+    } else { %>
+            <div class='alert alert-info' role='alert'>
+                <p> Vous n'avez pas d'amis.</p>
+            </div>
+                <% } %>
+        </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="d-flex justify-content-center">

@@ -11,7 +11,7 @@
 <%
     User user = (User) request.getSession().getAttribute("user");
     if(user != null) {
-        response.sendRedirect("Home.jsp");
+        response.sendRedirect("LogoutServlet");
     }else{
 %>
 <html>
