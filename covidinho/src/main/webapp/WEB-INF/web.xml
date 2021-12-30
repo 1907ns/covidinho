@@ -94,4 +94,13 @@
         <url-pattern>/FriendshipsServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ActivityServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.ActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActivityServlet</servlet-name>
+        <url-pattern>/ActivityServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
