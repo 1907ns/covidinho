@@ -90,8 +90,9 @@ public class ActivityServlet extends HttpServlet {
                 request.getRequestDispatcher("/Home.jsp").forward(request, response);
                 return;
             }
-            Activity activity = new Activity(sqlBegining, sqlEnd, idAdresse);
             User user  = (User) request.getSession().getAttribute("user");
+            Activity activity = new Activity(sqlBegining, sqlEnd, idAdresse, user.getId());
+
 
             ActivityDao activityDao = new ActivityDao();
 

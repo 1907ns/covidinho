@@ -150,7 +150,7 @@
                 <form class="justify-content-center align-items-center" action="CovidedServlet" method="post">
                     <input type="hidden" value="covided">
                     <div class="col justify-content-center align-items-center">
-                        <button type="submit" id="covided" class="btn btn-danger btn-lg">J'ai contracté le Coronavirus</button>
+                        <button type="submit" id="covided" class="btn btn-danger btn-lg">Je suis Covided</button>
                     </div>
                 </form>
             </div>

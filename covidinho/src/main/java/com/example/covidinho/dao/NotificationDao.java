@@ -202,7 +202,7 @@ public class NotificationDao {
         return null;
     }
 
-    public String notifyToTakeCare(User sender, User receiver) throws SQLException {
+    public String friendCovided(User sender, User receiver) throws SQLException {
 
         Connection con = null;
         PreparedStatement preparedStatement = null;
@@ -216,7 +216,38 @@ public class NotificationDao {
             preparedStatement.setInt(1, receiver.getId());
             preparedStatement.setInt(2, sender.getId());
             preparedStatement.setInt(3, 0);
-            preparedStatement.setString(4, sender.getUsername() + " a accepté votre demande d'ami.");
+            preparedStatement.setString(4, sender.getUsername() + " est covided");
+            preparedStatement.setInt(5, 0);
+            try{
+                int i= preparedStatement.executeUpdate();
+            }catch (SQLIntegrityConstraintViolationException e){
+                return "FAILURE";
+            }
+            return "SUCCESS";
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
+
+    }
+
+    public String someoneMetWasCovided(User sender, User receiver) throws SQLException {
+
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        try
+        {
+            con = DBConnector.createConnection();
+
+
+            String query = "insert into notifications(id_user,src_user, type,content,is_read) values (?,?,?,?,?);"; //Insert notification details into the table 'Notifications'
+            preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
+            preparedStatement.setInt(1, receiver.getId());
+            preparedStatement.setInt(2, sender.getId());
+            preparedStatement.setInt(3, 0);
+            preparedStatement.setString(4, "Vous avez rencontré un covideux");
             preparedStatement.setInt(5, 0);
             try{
                 int i= preparedStatement.executeUpdate();

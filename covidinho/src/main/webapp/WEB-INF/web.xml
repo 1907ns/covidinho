@@ -122,6 +122,15 @@
         <url-pattern>/admin/DeleteUserServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CovidedServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.CovidedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CovidedServlet</servlet-name>
+        <url-pattern>/CovidedServlet</url-pattern>
+    </servlet-mapping>
+
     <!-- Filtres -->
     <filter>
         <filter-name>AdminFilter</filter-name>
