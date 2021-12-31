@@ -74,9 +74,9 @@
         </form>
     </div>
 </nav>
-<div class="container">
+<div class="container justify-content-center align-items-center">
     <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-8 bg-primary rounded-lg border-0 border-dark p-3">
+        <div class="col-8 bg-primary rounded-lg border-0 border-dark p-3 justify-content-center align-items-center">
             <div class="form-group row">
                 <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn btn-light active">
@@ -138,8 +138,23 @@
                 <% } %>
             </form>
         </div>
-        <div class="col-4">
-            Afficher si on est comtaminé ou cas contact
+        <div class="container col-4 justify-content-center align-items-center" >
+            <!--
+            <div class="row justify-content-center align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#28a745" class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                </svg>
+            </div> -->
+            <% if(user.getIsPositive()==0) {%>
+            <div class="row justify-content-center align-items-center m-4">
+                <form class="justify-content-center align-items-center" action="CovidedServlet" method="post">
+                    <input type="hidden" value="covided">
+                    <div class="col justify-content-center align-items-center">
+                        <button type="submit" id="covided" class="btn btn-danger btn-lg">Je suis Covided</button>
+                    </div>
+                </form>
+            </div>
+            <% } %>
         </div>
     </div>
 </div>

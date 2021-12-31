@@ -7,11 +7,13 @@ public class Activity {
     private Timestamp begining;
     private Timestamp end;
     private String place;
+    private int idUser;
 
-    public Activity(Timestamp begining, Timestamp end, String place) {
+    public Activity(Timestamp begining, Timestamp end, String place, int idUser) {
         this.begining = begining;
         this.end = end;
         this.place = place;
+        this.idUser = idUser;
     }
 
     public Timestamp getBegining() {
@@ -36,5 +38,13 @@ public class Activity {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 }
