@@ -58,7 +58,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarAdmin">
                     <a class="dropdown-item" href="admin/AllUsersServlet">Utilisateurs</a>
-                    <a class="dropdown-item" href="FriendshipsServlet">Activités</a>
+                    <a class="dropdown-item" href="admin/AllActivitiesServlet">Activités</a>
                 </div>
             </li>
             <%} %>

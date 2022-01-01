@@ -131,6 +131,61 @@
         <url-pattern>/CovidedServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ModifyUserServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.ModifyUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModifyUserServlet</servlet-name>
+        <url-pattern>/admin/ModifyUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AccessUserModificationServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AccessUserModificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessUserModificationServlet</servlet-name>
+        <url-pattern>/admin/AccessUserModificationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllActivitiesServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AllActivitiesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllActivitiesServlet</servlet-name>
+        <url-pattern>/admin/AllActivitiesServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteActivityServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.DeleteActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteActivityServlet</servlet-name>
+        <url-pattern>/admin/DeleteActivityServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AccessActivityModificationServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AccessActivityModificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessActivityModificationServlet</servlet-name>
+        <url-pattern>/admin/AccessActivityModificationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ModifyActivityServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.ModifyActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModifyActivityServlet</servlet-name>
+        <url-pattern>/admin/ModifyActivityServlet</url-pattern>
+    </servlet-mapping>
+
+
     <!-- Filtres -->
     <filter>
         <filter-name>AdminFilter</filter-name>

@@ -1,12 +1,11 @@
-<%@ page import="com.example.covidinho.beans.User" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.covidinho.dao.UserDao" %><%--
+<%@ page import="com.example.covidinho.beans.User" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
-  Date: 30/12/2021
-  Time: 16:57
+  Date: 01/01/2022
+  Time: 15:38
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User user = (User) request.getSession().getAttribute("user");
     if(user == null) {
@@ -80,60 +79,42 @@
     </div>
 </nav>
 
-<h1 class="text-center title">Utilisateurs</h1>
-
-<div class="row justify-content-center">
-    <div class="col-auto">
-        <table class="table table-striped table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Utilisateur</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-                <%
-        ArrayList<User> listeUsers = (ArrayList<User>) request.getSession().getAttribute("allusers");
-
-        if(listeUsers.size()!=0){
-            for(User u : listeUsers){
-
-
-    %>
-            <tr class="table-info"><td><%=u.getUsername()%></td><td> <%if (u.getAdmin()==1){
-                %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <%}%><a class="btn btn-info" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a></td>
-            </tr>
-
-                <% } }else { %>
-            <div class='alert alert-info' role='alert'>
-                <p> Il n'y a aucun utilisateur sur la plateforme.</p>
-            </div>
-                <% } %>
-    </div>
-
-
-
-    <div class="d-flex justify-content-center">
-        <% String error = (String)request.getAttribute("errMessage");
-            String success = (String)request.getAttribute("succMessage");
-            if(error!=null)
-            {
-        %>
-        <div class='alert alert-danger' role='alert'>
-            <%= error %>
+<% User modifUser = (User) request.getSession().getAttribute("userModif");%>
+<h1 class="text-center title">Modifier utilisateur</h1>
+<div class="container">
+    <form action="ModifyUserServlet" method="post">
+        <div class="form-group hide">
+            <input type="hidden" type="text" class="form-control" id="userid" name="userid" value="<%=modifUser.getId()%>">
         </div>
-        <% } else if (success != null){ %>
-
-        <div class='alert alert-success' role='alert'>
-            <%= success %>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username"  name="username" required="" value="<%=modifUser.getUsername()%>" >
         </div>
-        <% } %>
-    </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required="" >
+        </div>
+        <div class="form-group">
+            <label for="firstname">Firstname</label>
+            <input type="text" class="form-control" pattern="[A-Z a-z]*" id="firstname"  name="firstname" required="" value="<%=modifUser.getFirstname()%>">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" pattern="[A-Z a-z]*" name="name"  required="" value="<%=modifUser.getName()%>">
+        </div>
+        <div class="form-group">
+            <label for="birthdate">Birthdate</label>
+            <input type="text" class="form-control" id="birthdate" name="birthdate" required="" value="<%=modifUser.getBirthdate()%>">
+        </div>
+        <div class="form-group">
+            <label for="admin">Admin</label>
+            <input type="number" class="form-control" id="admin" name="admin" required="" max="1" min="0" value="<%=modifUser.getAdmin()%>">
+        </div>
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    </form>
 </div>
-
 </body>
 </html>
-
 <%
     }
 %>

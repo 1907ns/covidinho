@@ -287,5 +287,42 @@ public class UserDao {
             e.printStackTrace();
         }
     }
+
+    public String adminModifyUser(int userId, String newUsername, String newPassword,  String newName, String newFname, String newBdate, int newAdmin) throws SQLException, ParseException {
+
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        java.util.Date date = formatter.parse(newBdate);
+        java.sql.Date formattedBDate = new java.sql.Date(date.getTime());
+        try
+        {
+            con = DBConnector.createConnection();
+            String query = "update users set login = ?, password = ?, firstname =? , name = ?, birthdate = ?, admin = ? where id = ?"; //Insert user details into the table 'USERS'
+            preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
+            preparedStatement.setString(1, newUsername);
+            preparedStatement.setString(2, getHashSHA1(newPassword));
+            preparedStatement.setString(3, newFname);
+            preparedStatement.setString(4, newName);
+            preparedStatement.setDate(5, formattedBDate);
+            preparedStatement.setInt(6, newAdmin);
+            preparedStatement.setInt(7, userId);
+
+            User user = null;
+            try{
+                int i= preparedStatement.executeUpdate();
+                con.close();
+            }catch (SQLIntegrityConstraintViolationException e){
+                return "FAILURE";
+            }
+
+            return "SUCCESS";
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return "FAILURE";
+    }
 }
 

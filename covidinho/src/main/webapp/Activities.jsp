@@ -1,6 +1,7 @@
 <%@ page import="com.example.covidinho.beans.User" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.covidinho.dao.UserDao" %><%--
+<%@ page import="com.example.covidinho.dao.UserDao" %>
+<%@ page import="com.example.covidinho.beans.Activity" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
   Date: 30/12/2021
@@ -87,21 +88,23 @@
         <table class="table table-striped table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
             <thead>
             <tr>
-                <th scope="col">Utilisateur</th>
+                <th scope="col">Date de début</th>
+                <th scope="col">Date de fin</th>
+                <th scope="col">Id user</th>
+                <th scope="col">Id lieu</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
                 <%
-        ArrayList<User> listeUsers = (ArrayList<User>) request.getSession().getAttribute("allusers");
+        ArrayList<Activity> listeAct = (ArrayList<Activity>) request.getSession().getAttribute("allactivities");
 
-        if(listeUsers.size()!=0){
-            for(User u : listeUsers){
+        if(listeAct.size()!=0){
+            for(Activity a : listeAct){
 
 
     %>
-            <tr class="table-info"><td><%=u.getUsername()%></td><td> <%if (u.getAdmin()==1){
-                %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <%}%><a class="btn btn-info" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a></td>
+            <tr class="table-info"><td><%=a.getBegining()%></td><td><%=a.getEnd()%></td><td><%=a.getIdUser()%></td><td><%=a.getPlace()%></td><td><a class="btn btn-danger" href="DeleteActivityServlet?actid=<%=a.getId()%>" role="button">Supprimer</a><a class="btn btn-info" href="AccessActivityModificationServlet?actid=<%=a.getId()%>" role="button">Modifier</a></td>
             </tr>
 
                 <% } }else { %>
