@@ -1,10 +1,10 @@
 <%@ page import="com.example.covidinho.beans.User" %>
-<%@ page import="com.example.covidinho.beans.Friendship" %>
+<%@ page import="com.example.covidinho.beans.Activity" %>
 <%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
-  Date: 29/12/2021
-  Time: 12:25
+  Date: 01/01/2022
+  Time: 21:37
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -77,64 +77,61 @@
     </div>
 </nav>
 
-<h1 class="text-center title">Mes amis</h1>
+<h1 class="text-center title">Mes activités</h1>
 
 <div class="row justify-content-center">
-    <div class="col-6">
-        <table class="table table-striped table-dark table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Ami</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div class="col-auto">
+        <table class="table table-striped table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Date de début</th>
+                <th scope="col">Date de fin</th>
+                <th scope="col">Id lieu</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
                 <%
-        ArrayList<Friendship> listeAmis = (ArrayList<Friendship>) request.getSession().getAttribute("friends");
+        ArrayList<Activity> listeAct = (ArrayList<Activity>) request.getSession().getAttribute("activities");
 
-        if(listeAmis.size()!=0){
-            for(Friendship f : listeAmis){
-         %>
+        if(listeAct.size()!=0){
+            for(Activity a : listeAct){
 
-                <tr>
-                    <td><%=f.getFriendUsername()%></td><td><a class="btn btn-info" href="DeleteFriendServlet?iduser1=<%=f.getIdUser1()%>&iduser2=<%=f.getIdUser2()%>" role="button">Supprimer</a></td>
-                </tr>
-
-                <% }
 
     %>
-        </tbody>
-        </table>
+            <tr class="table-info"><td><%=a.getBegining()%></td><td><%=a.getEnd()%></td><td><%=a.getPlace()%></td><td><a class="btn btn-danger" href="DeleteMyActivityServlet?actid=<%=a.getId()%>" role="button">Supprimer</a></td>
+            </tr>
 
-        <% }else { %>
-                <div class='alert alert-info' role='alert'>
-                    <p> Vous n'avez pas d'amis.</p>
-                </div>
-                    <% } %>
+                <% } }else { %>
+            <div class='alert alert-info' role='alert'>
+                <p> Vous n'avez aucune activité.</p>
+            </div>
+                <% } %>
+    </div>
+
+
+
+    <div class="d-flex justify-content-center">
+        <% String error = (String)request.getAttribute("errMessage");
+            String success = (String)request.getAttribute("succMessage");
+            if(error!=null)
+            {
+        %>
+        <div class='alert alert-danger' role='alert'>
+            <%= error %>
+        </div>
+        <% } else if (success != null){ %>
+
+        <div class='alert alert-success' role='alert'>
+            <%= success %>
+        </div>
+        <% } %>
     </div>
 </div>
 
-<div class="d-flex justify-content-center">
-    <% String error = (String)request.getAttribute("errMessage");
-        String success = (String)request.getAttribute("succMessage");
-        if(error!=null)
-        {
-    %>
-    <div class='alert alert-danger' role='alert'>
-        <%= error %>
-    </div>
-    <% } else if (success != null){ %>
-
-    <div class='alert alert-success' role='alert'>
-        <%= success %>
-    </div>
-    <% } %>
-</div>
 </body>
 </html>
 
 <%
-
     }
 %>
-

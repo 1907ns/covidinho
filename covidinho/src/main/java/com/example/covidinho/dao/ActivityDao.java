@@ -1,6 +1,7 @@
 package com.example.covidinho.dao;
 
 import com.example.covidinho.beans.Activity;
+import com.example.covidinho.beans.Friendship;
 import com.example.covidinho.beans.Notification;
 import com.example.covidinho.beans.User;
 import utility.DBConnector;
@@ -108,5 +109,25 @@ public class ActivityDao {
             e.printStackTrace();
             return "FAILURE";
         }
+    }
+
+    public ArrayList<Activity> getUserActivities(int userId) throws SQLException {
+        ArrayList <Activity> activities = new ArrayList<>();
+        Connection connection = DBConnector.createConnection();
+        String sql = "SELECT * FROM activities WHERE id_user=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, userId);
+        ResultSet result = statement.executeQuery();
+
+        while(result.next()){
+            Timestamp begining = result.getTimestamp("begining");
+            Timestamp end = result.getTimestamp("end");
+            String place = result.getString("id_place");
+            int idUser = result.getInt("id_user");
+            Activity activity = new Activity(begining, end, place, idUser);
+            activity.setId(result.getInt("id"));
+            activities.add(activity);
+        }
+        return activities;
     }
 }

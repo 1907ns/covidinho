@@ -15,10 +15,17 @@
 <html>
 <head>
     <title>Mon profil</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="jquery-ui/jquery-ui.min.js"></script>
+    <script src="scripts/datepicker.js"> </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
+
 
 </head>
 <body>
@@ -45,7 +52,7 @@
                     <a class="dropdown-item" href="FriendshipsServlet">Mes amis</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="NotificationServlet">Mes notifications</a>
-                    <a class="dropdown-item" href="#">Mes activités</a>
+                    <a class="dropdown-item" href="MyActivitiesServlet">Mes activités</a>
                 </div>
             </li>
 
@@ -94,9 +101,14 @@
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" pattern="[A-Z a-z]*" value="<%=user.getName()%>" name="name" placeholder="Enter name" required="">
         </div>
+        <div class="form-group">
+            <label for="birthdate">Birthdate</label>
+            <input type="text" class="form-control" id="birthdate" name="birthdate" required="" value="<%=user.getBirthdate()%>">
+        </div>
         <button type="submit" class="btn btn-primary">Modifier</button>
     </form>
-
+    <br>
+    <a href="DeleteMyProfileServlet" class="btn btn-danger">Supprimer votre compte</a>
     <br>
         <% String error = (String)request.getAttribute("errMessage");
 

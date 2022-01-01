@@ -185,6 +185,34 @@
         <url-pattern>/admin/ModifyActivityServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DeleteMyProfileServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.DeleteMyProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteMyProfileServlet</servlet-name>
+        <url-pattern>/DeleteMyProfileServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MyActivitiesServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.MyActivitiesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyActivitiesServlet</servlet-name>
+        <url-pattern>/MyActivitiesServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>DeleteMyActivityServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.DeleteMyActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteMyActivityServlet</servlet-name>
+        <url-pattern>/DeleteMyActivityServlet</url-pattern>
+    </servlet-mapping>
+
 
     <!-- Filtres -->
     <filter>
@@ -195,5 +223,12 @@
         <filter-name>AdminFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
+
+    <!-- Pages d'erreurs -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404Error.jsp</location>
+    </error-page>
+
 
 </web-app>

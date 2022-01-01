@@ -26,10 +26,6 @@
     <script type="application/javascript" src="../jquery-ui/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../jquery-ui/jquery-ui.min.css">
-    <script type="application/javascript"> $(function() {
-        $( "#birthdate" ).datepicker({  maxDate: new Date(), dateFormat: 'yy-mm-dd' });
-
-    });</script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -55,7 +51,7 @@
                     <a class="dropdown-item" href="../FriendshipsServlet">Mes amis</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="../NotificationServlet">Mes notifications</a>
-                    <a class="dropdown-item" href="#">Mes activités</a>
+                    <a class="dropdown-item" href="../MyActivitiesServlet">Mes activités</a>
                 </div>
             </li>
             <% if (user.getAdmin()==1){ %>
@@ -81,7 +77,7 @@
     </div>
 </nav>
 
-<h1 class="text-center title">Utilisateurs</h1>
+<h1 class="text-center title">Activités</h1>
 
 <div class="row justify-content-center">
     <div class="col-auto">
@@ -109,7 +105,7 @@
 
                 <% } }else { %>
             <div class='alert alert-info' role='alert'>
-                <p> Il n'y a aucun utilisateur sur la plateforme.</p>
+                <p> Il n'y a aucune activité sur la plateforme.</p>
             </div>
                 <% } %>
     </div>

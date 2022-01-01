@@ -47,8 +47,8 @@
                     <a class="dropdown-item" href="MyProfile.jsp">Mon profil</a>
                     <a class="dropdown-item" href="FriendshipsServlet">Mes amis</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Mes notifications</a>
-                    <a class="dropdown-item" href="#">Mes activités</a>
+                    <a class="dropdown-item" href="NotificationServlet">Mes notifications</a>
+                    <a class="dropdown-item" href="MyActivitiesServlet">Mes activités</a>
                 </div>
             </li>
 
