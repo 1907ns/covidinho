@@ -19,7 +19,7 @@ AYATA Enes - FAUGIER Elliot
       * Supprimer un utilisateur
       * Accéder à toutes les activités de la plateforme
       * Supprimer une activité
-      * Modifier une activité (en cours)
+      * Modifier une activité 
 
 ## Fonctionnalités bonus réalisées
   1. Un utilisateur peut supprimer son propre compte
