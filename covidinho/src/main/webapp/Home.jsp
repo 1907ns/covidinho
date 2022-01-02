@@ -109,7 +109,8 @@
                 <li>
                     <p class="navbar-text">Bienvenue </p> <b><%= user.getUsername() %></b>
                 </li>
-                <% if(user.getIsPositive()==0) {%>
+                <% if(user.getIsPositive()==0) { %>
+
                 <li>
                     <form class="justify-content-center align-items-center" action="CovidedServlet" method="post">
                         <input type="hidden" value="covided">
@@ -118,6 +119,11 @@
                         </div>
                     </form>
                 </li>
+                    <% if(user.getIsVaccinated()==0){ %>
+                    <li>
+                        <a href="VaccinedServlet" class="btn btn-warning">Je suis vacciné</a>
+                    </li>
+                   <% } %>
                 <% } %>
             </ul>
     

@@ -23,6 +23,10 @@ import java.util.List;
 @WebServlet(name = "VaccinedServlet", value = "/VaccinedServlet")
 public class VaccinedServlet extends HttpServlet {
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

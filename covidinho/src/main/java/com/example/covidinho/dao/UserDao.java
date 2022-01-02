@@ -78,6 +78,7 @@ public class UserDao {
             user.setAdmin(result.getInt("admin"));
             user.setIsPositive(result.getInt("is_positive"));
             user.setPositiveDate(result.getDate("positive_date"));
+            user.setIsVaccinated(result.getInt("is_vaccinated"));
         }
 
         connection.close();
