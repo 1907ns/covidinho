@@ -76,6 +76,7 @@ public class UserDao {
             user.setPassword(password);
             user.setAdmin(result.getInt("admin"));
             user.setIsPositive(result.getInt("is_positive"));
+            user.setPositiveDate(result.getDate("positive_date"));
         }
 
         connection.close();
@@ -89,18 +90,23 @@ public class UserDao {
         String password = getHashSHA1(modifierBean.getPassword());
         String firstname = modifierBean.getFirstname();
         String name = modifierBean.getName();
+        Date positiveDate = modifierBean.getPositiveDate();
+        int isPositive = modifierBean.getIsPositive();
         Connection con = null;
         PreparedStatement preparedStatement = null;
+
         try
         {
             con = DBConnector.createConnection();
-            String query = "update users set login = ?, password = ?, firstname =? , name = ? where id = ?"; //Insert user details into the table 'USERS'
+            String query = "update users set login = ?, password = ?, firstname =? , name = ?, is_positive = ?, positive_date = ? where id = ?"; //Insert user details into the table 'USERS'
             preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, firstname);
             preparedStatement.setString(4, name);
-            preparedStatement.setInt(5, id);
+            preparedStatement.setInt(5, isPositive);
+            preparedStatement.setDate(6, positiveDate);
+            preparedStatement.setInt(7, id);
 
             User user = null;
             try{
@@ -149,6 +155,8 @@ public class UserDao {
             user.setFirstname(result.getString("firstname"));
             user.setUsername(username);
             user.setBirthdate(String.valueOf(result.getDate("birthdate")));
+            user.setPositiveDate(result.getDate("positive_date"));
+            user.setIsPositive(result.getInt("is_positive"));
         }
 
         connection.close();
