@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProfileModificationServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.ProfileModificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProfileModificationServlet</servlet-name>
+        <url-pattern>/ProfileModificationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.SearchUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <url-pattern>/SearchUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendFriendRequestServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.SendFriendRequestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendFriendRequestServlet</servlet-name>
+        <url-pattern>/SendFriendRequestServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NotificationServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.NotificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NotificationServlet</servlet-name>
+        <url-pattern>/NotificationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteNotificationServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.DeleteNotificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteNotificationServlet</servlet-name>
+        <url-pattern>/DeleteNotificationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AcceptFriendServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.AcceptFriendServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AcceptFriendServlet</servlet-name>
+        <url-pattern>/AcceptFriendServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FriendshipsServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.FriendshipsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FriendshipsServlet</servlet-name>
+        <url-pattern>/FriendshipsServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ActivityServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.ActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActivityServlet</servlet-name>
+        <url-pattern>/ActivityServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllUsersServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AllUsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllUsersServlet</servlet-name>
+        <url-pattern>/admin/AllUsersServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.DeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <url-pattern>/admin/DeleteUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CovidedServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.CovidedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CovidedServlet</servlet-name>
+        <url-pattern>/CovidedServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ModifyUserServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.ModifyUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModifyUserServlet</servlet-name>
+        <url-pattern>/admin/ModifyUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AccessUserModificationServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AccessUserModificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessUserModificationServlet</servlet-name>
+        <url-pattern>/admin/AccessUserModificationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllActivitiesServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AllActivitiesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllActivitiesServlet</servlet-name>
+        <url-pattern>/admin/AllActivitiesServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteActivityServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.DeleteActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteActivityServlet</servlet-name>
+        <url-pattern>/admin/DeleteActivityServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AccessActivityModificationServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AccessActivityModificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessActivityModificationServlet</servlet-name>
+        <url-pattern>/admin/AccessActivityModificationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ModifyActivityServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.ModifyActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModifyActivityServlet</servlet-name>
+        <url-pattern>/admin/ModifyActivityServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteMyProfileServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.DeleteMyProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteMyProfileServlet</servlet-name>
+        <url-pattern>/DeleteMyProfileServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MyActivitiesServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.MyActivitiesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyActivitiesServlet</servlet-name>
+        <url-pattern>/MyActivitiesServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>DeleteMyActivityServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.DeleteMyActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteMyActivityServlet</servlet-name>
+        <url-pattern>/DeleteMyActivityServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- Filtres -->
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.example.covidinho.filters.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Pages d'erreurs -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404Error.jsp</location>
+    </error-page>
+
+
+</web-app>

@@ -31,6 +31,7 @@ public class ActivityServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        System.out.println(request.getParameterMap().keySet().toString());
         request.setCharacterEncoding("UTF-8");
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
         Date begining;
@@ -62,6 +63,16 @@ public class ActivityServlet extends HttpServlet {
 
             JSONObject jsonObject= new JSONObject(httpResponse.body());
 
+            System.out.println(jsonObject.toString());
+
+            if(jsonObject.toMap().containsKey("title")){
+                if(jsonObject.getString("title").equals("Missing query")){
+                    request.setAttribute("errPlace", "Champs vide");
+                    request.getRequestDispatcher("/Home.jsp").forward(request, response);
+                    return;
+                }
+            }
+
             if(jsonObject.getJSONArray("features").length() == 0){
                 request.setAttribute("errPlace", "Emplacement inconnu");
                 request.getRequestDispatcher("/Home.jsp").forward(request, response);
@@ -86,7 +97,7 @@ public class ActivityServlet extends HttpServlet {
             Timestamp sqlBegining = new Timestamp(begining.getTime());
             Timestamp sqlEnd = new Timestamp(end.getTime());
             if(sqlEnd.before(sqlBegining)){
-                request.setAttribute("errTime", "L'adresse '"+request.getParameter("adresse")+"' est mal formatée");
+                request.setAttribute("errTime", "Le "+sqlEnd.toString()+" ne peut pas avoir eu lieu avant le "+sqlBegining.toString());
                 request.getRequestDispatcher("/Home.jsp").forward(request, response);
                 return;
             }
@@ -113,7 +124,9 @@ public class ActivityServlet extends HttpServlet {
 
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            request.setAttribute("errTime", "Date(s) manquante(s)");
+            request.getRequestDispatcher("/Home.jsp").forward(request, response);
+            return;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (SQLException e) {

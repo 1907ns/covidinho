@@ -1,5 +1,12 @@
 package com.example.covidinho.beans;
 
+import com.example.covidinho.dao.UserDao;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class User {
     private int id;
     private String username;
@@ -9,7 +16,7 @@ public class User {
     private String birthdate;
     private int admin;
     private int isPositive;
-    private String positiveDate;
+    private Date positiveDate;
     private int isVaccinated;
 
     public int getId() {
@@ -56,7 +63,7 @@ public class User {
         this.firstname = firstname;
     }
 
-    public String getPositiveDate() {
+    public Date getPositiveDate() {
         return positiveDate;
     }
 
@@ -64,7 +71,7 @@ public class User {
         this.birthdate = birthdate;
     }
 
-    public void setPositiveDate(String positiveDate) {
+    public void setPositiveDate(Date positiveDate) {
         this.positiveDate = positiveDate;
     }
 
@@ -90,5 +97,19 @@ public class User {
 
     public void setIsVaccinated(int isVaccinated) {
         this.isVaccinated = isVaccinated;
+    }
+
+    public void isCured() throws ParseException {
+        System.out.println(this.positiveDate);
+        System.out.println(this.isPositive);
+        if(getIsPositive()==1){
+            java.util.Date today = new java.util.Date();
+            Date dateFinConfinement = new Date(positiveDate.getTime() + (1000 * 60 * 60 * 24 * 7));
+            if(today.after(dateFinConfinement) || today.equals(dateFinConfinement)){
+                this.setIsPositive(0);
+                UserDao userDao = new UserDao();
+                userDao.modifyUser(this);
+            }
+        }
     }
 }

@@ -77,6 +77,7 @@ public class UserDao {
             user.setPassword(password);
             user.setAdmin(result.getInt("admin"));
             user.setIsPositive(result.getInt("is_positive"));
+            user.setPositiveDate(result.getDate("positive_date"));
         }
 
         connection.close();
@@ -90,6 +91,8 @@ public class UserDao {
         String password = getHashSHA1(modifierBean.getPassword());
         String firstname = modifierBean.getFirstname();
         String name = modifierBean.getName();
+        Date positiveDate = modifierBean.getPositiveDate();
+        int isPositive = modifierBean.getIsPositive();
 
 
 
@@ -98,18 +101,20 @@ public class UserDao {
         java.util.Date date = formatter.parse(modifierBean.getBirthdate());
         java.sql.Date formattedBDate = new java.sql.Date(date.getTime());
 
+        /*
          java.sql.Date formattedPosDate = null;
         if(modifierBean.getPositiveDate()!=null){
             //on formate la date
             DateFormat formatter1 = new SimpleDateFormat("yyyy-mm-dd");
-            java.util.Date date1 = formatter1.parse(modifierBean.getPositiveDate());
+            java.util.Date date1 = modifierBean.getPositiveDate();
             formattedPosDate = new java.sql.Date(date1.getTime());
-        }
+        }*/
 
 
 
         Connection con = null;
         PreparedStatement preparedStatement = null;
+
         try
         {
             con = DBConnector.createConnection();
@@ -122,7 +127,7 @@ public class UserDao {
             preparedStatement.setDate(5, formattedBDate);
             preparedStatement.setInt(6, modifierBean.getAdmin());
             preparedStatement.setInt(7, modifierBean.getIsPositive());
-            preparedStatement.setDate(8, formattedPosDate);
+            preparedStatement.setDate(8, positiveDate);
             preparedStatement.setInt(9, modifierBean.getIsVaccinated());
             preparedStatement.setInt(10, id);
 
@@ -143,7 +148,7 @@ public class UserDao {
                     user.setPassword(modifierBean.getPassword());
                     user.setAdmin(result.getInt("admin"));
                     user.setIsPositive(result.getInt("is_positive"));
-                    user.setPositiveDate(String.valueOf(result.getInt("is_positive")));
+                    user.setPositiveDate(result.getDate("positive_date"));
                     user.setIsVaccinated(result.getInt("is_vaccinated"));
 
                 }
@@ -177,6 +182,8 @@ public class UserDao {
             user.setFirstname(result.getString("firstname"));
             user.setUsername(username);
             user.setBirthdate(String.valueOf(result.getDate("birthdate")));
+            user.setPositiveDate(result.getDate("positive_date"));
+            user.setIsPositive(result.getInt("is_positive"));
         }
 
         connection.close();

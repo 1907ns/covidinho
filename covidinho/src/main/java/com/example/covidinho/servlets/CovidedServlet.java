@@ -43,11 +43,8 @@ public class CovidedServlet extends HttpServlet {
             }
 
             user.setIsPositive(1);
-
-            SimpleDateFormat parser = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-            Date date = new Date();
-            Timestamp now = new Timestamp(date.getTime());
-            user.setPositiveDate(parser.format(now));
+            java.util.Date date = new Date();
+            user.setPositiveDate(new java.sql.Date(date.getTime()));
             userDao.modifyUser(user);
             request.getSession().setAttribute("user", user);
 
