@@ -8,6 +8,7 @@ public class Activity {
     private Timestamp end;
     private String place;
     private int idUser;
+    private int id;
 
     public Activity(Timestamp begining, Timestamp end, String place, int idUser) {
         this.begining = begining;
@@ -46,5 +47,13 @@ public class Activity {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

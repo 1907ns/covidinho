@@ -1,6 +1,7 @@
 <%@ page import="com.example.covidinho.beans.User" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.covidinho.dao.UserDao" %><%--
+<%@ page import="com.example.covidinho.dao.UserDao" %>
+<%@ page import="com.example.covidinho.beans.Activity" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
   Date: 30/12/2021
@@ -25,10 +26,6 @@
     <script type="application/javascript" src="../jquery-ui/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../jquery-ui/jquery-ui.min.css">
-    <script type="application/javascript"> $(function() {
-        $( "#birthdate" ).datepicker({  maxDate: new Date(), dateFormat: 'yy-mm-dd' });
-
-    });</script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -80,33 +77,35 @@
     </div>
 </nav>
 
-<h1 class="text-center title">Utilisateurs</h1>
+<h1 class="text-center title">Activités</h1>
 
 <div class="row justify-content-center">
     <div class="col-auto">
         <table class="table table-striped table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
             <thead>
             <tr>
-                <th scope="col">Utilisateur</th>
+                <th scope="col">Date de début</th>
+                <th scope="col">Date de fin</th>
+                <th scope="col">Id user</th>
+                <th scope="col">Id lieu</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
                 <%
-        ArrayList<User> listeUsers = (ArrayList<User>) request.getSession().getAttribute("allusers");
+        ArrayList<Activity> listeAct = (ArrayList<Activity>) request.getSession().getAttribute("allactivities");
 
-        if(listeUsers.size()!=0){
-            for(User u : listeUsers){
+        if(listeAct.size()!=0){
+            for(Activity a : listeAct){
 
 
     %>
-            <tr class="table-info"><td><%=u.getUsername()%></td><td> <%if (u.getAdmin()==1){
-                %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <%}%><a class="btn btn-info" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a></td>
+            <tr class="table-info"><td><%=a.getBegining()%></td><td><%=a.getEnd()%></td><td><%=a.getIdUser()%></td><td><%=a.getPlace()%></td><td><a class="btn btn-danger" href="DeleteActivityServlet?actid=<%=a.getId()%>" role="button">Supprimer</a><a class="btn btn-info" href="AccessActivityModificationServlet?actid=<%=a.getId()%>" role="button">Modifier</a></td>
             </tr>
 
                 <% } }else { %>
             <div class='alert alert-info' role='alert'>
-                <p> Il n'y a aucun utilisateur sur la plateforme.</p>
+                <p> Il n'y a aucune activité sur la plateforme.</p>
             </div>
                 <% } %>
     </div>

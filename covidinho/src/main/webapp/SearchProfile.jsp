@@ -50,7 +50,7 @@
                     <a class="dropdown-item" href="FriendshipsServlet">Mes amis</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="NotificationServlet">Mes notifications</a>
-                    <a class="dropdown-item" href="#">Mes activités</a>
+                    <a class="dropdown-item" href="MyActivitiesServlet">Mes activités</a>
                 </div>
             </li>
 
@@ -61,7 +61,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarAdmin">
                     <a class="dropdown-item" href="admin/AllUsersServlet">Utilisateurs</a>
-                    <a class="dropdown-item" href="FriendshipsServlet">Activités</a>
+                    <a class="dropdown-item" href="admin/AllActivitiesServlet">Activités</a>
                 </div>
             </li>
             <%} %>

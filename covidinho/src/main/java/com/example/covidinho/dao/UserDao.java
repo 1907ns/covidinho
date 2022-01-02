@@ -72,6 +72,7 @@ public class UserDao {
             user.setId(result.getInt("id"));
             user.setName(result.getString("name"));
             user.setFirstname(result.getString("firstname"));
+            user.setBirthdate(String.valueOf(result.getDate("birthdate")));
             user.setUsername(login);
             user.setPassword(password);
             user.setAdmin(result.getInt("admin"));
@@ -84,7 +85,7 @@ public class UserDao {
         return user;
     }
 
-    public User modifyUser(User modifierBean){
+    public User modifyUser(User modifierBean) throws ParseException {
         int id = modifierBean.getId();
         String username = modifierBean.getUsername();
         String password = getHashSHA1(modifierBean.getPassword());
@@ -92,21 +93,43 @@ public class UserDao {
         String name = modifierBean.getName();
         Date positiveDate = modifierBean.getPositiveDate();
         int isPositive = modifierBean.getIsPositive();
+
+
+
+        //on formate la date
+        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        java.util.Date date = formatter.parse(modifierBean.getBirthdate());
+        java.sql.Date formattedBDate = new java.sql.Date(date.getTime());
+
+        /*
+         java.sql.Date formattedPosDate = null;
+        if(modifierBean.getPositiveDate()!=null){
+            //on formate la date
+            DateFormat formatter1 = new SimpleDateFormat("yyyy-mm-dd");
+            java.util.Date date1 = modifierBean.getPositiveDate();
+            formattedPosDate = new java.sql.Date(date1.getTime());
+        }*/
+
+
+
         Connection con = null;
         PreparedStatement preparedStatement = null;
 
         try
         {
             con = DBConnector.createConnection();
-            String query = "update users set login = ?, password = ?, firstname =? , name = ?, is_positive = ?, positive_date = ? where id = ?"; //Insert user details into the table 'USERS'
+            String query = "update users set login = ?, password = ?, firstname =? , name = ?, birthdate = ?, admin = ?, is_positive = ?, positive_date = ?, is_vaccinated = ?  where id = ?"; //Insert user details into the table 'USERS'
             preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, firstname);
             preparedStatement.setString(4, name);
-            preparedStatement.setInt(5, isPositive);
-            preparedStatement.setDate(6, positiveDate);
-            preparedStatement.setInt(7, id);
+            preparedStatement.setDate(5, formattedBDate);
+            preparedStatement.setInt(6, modifierBean.getAdmin());
+            preparedStatement.setInt(7, modifierBean.getIsPositive());
+            preparedStatement.setDate(8, positiveDate);
+            preparedStatement.setInt(9, modifierBean.getIsVaccinated());
+            preparedStatement.setInt(10, id);
 
             User user = null;
             try{
@@ -120,10 +143,14 @@ public class UserDao {
                     user.setId(result.getInt("id"));
                     user.setName(result.getString("name"));
                     user.setFirstname(result.getString("firstname"));
+                    user.setBirthdate(String.valueOf(result.getDate("birthdate")));
                     user.setUsername(username);
                     user.setPassword(modifierBean.getPassword());
                     user.setAdmin(result.getInt("admin"));
                     user.setIsPositive(result.getInt("is_positive"));
+                    user.setPositiveDate(result.getDate("positive_date"));
+                    user.setIsVaccinated(result.getInt("is_vaccinated"));
+
                 }
                 con.close();
             }catch (SQLIntegrityConstraintViolationException e){
@@ -294,6 +321,43 @@ public class UserDao {
         }catch (SQLIntegrityConstraintViolationException e){
             e.printStackTrace();
         }
+    }
+
+    public String adminModifyUser(int userId, String newUsername, String newPassword,  String newName, String newFname, String newBdate, int newAdmin) throws SQLException, ParseException {
+
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        java.util.Date date = formatter.parse(newBdate);
+        java.sql.Date formattedBDate = new java.sql.Date(date.getTime());
+        try
+        {
+            con = DBConnector.createConnection();
+            String query = "update users set login = ?, password = ?, firstname =? , name = ?, birthdate = ?, admin = ? where id = ?"; //Insert user details into the table 'USERS'
+            preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
+            preparedStatement.setString(1, newUsername);
+            preparedStatement.setString(2, getHashSHA1(newPassword));
+            preparedStatement.setString(3, newFname);
+            preparedStatement.setString(4, newName);
+            preparedStatement.setDate(5, formattedBDate);
+            preparedStatement.setInt(6, newAdmin);
+            preparedStatement.setInt(7, userId);
+
+            User user = null;
+            try{
+                int i= preparedStatement.executeUpdate();
+                con.close();
+            }catch (SQLIntegrityConstraintViolationException e){
+                return "FAILURE";
+            }
+
+            return "SUCCESS";
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return "FAILURE";
     }
 }
 

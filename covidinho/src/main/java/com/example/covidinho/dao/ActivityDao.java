@@ -1,6 +1,7 @@
 package com.example.covidinho.dao;
 
 import com.example.covidinho.beans.Activity;
+import com.example.covidinho.beans.Friendship;
 import com.example.covidinho.beans.Notification;
 import com.example.covidinho.beans.User;
 import utility.DBConnector;
@@ -69,5 +70,64 @@ public class ActivityDao {
         }
         return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
 
+    }
+
+
+    public ArrayList<Activity> getAllActivities() throws SQLException {
+        Connection connection = DBConnector.createConnection();
+        String sql = "SELECT * FROM activities";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet result = statement.executeQuery();
+        ArrayList <Activity> activities = new ArrayList<>();
+        while (result.next()) {
+            Timestamp begining = result.getTimestamp("begining");
+            Timestamp end = result.getTimestamp("end");
+            String place = result.getString("id_place");
+            int idUser = result.getInt("id_user");
+            Activity activity = new Activity(begining, end, place, idUser);
+            activity.setId(result.getInt("id"));
+            activities.add(activity);
+        }
+        connection.close();
+        return activities;
+    }
+
+
+
+    public String deleteActivityById(int actId) throws SQLException {
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        con = DBConnector.createConnection();
+        String query = "delete from activities where id = ?";  // Update notification state
+        preparedStatement = con.prepareStatement(query);
+        preparedStatement.setInt(1, actId);
+        try{
+            int i= preparedStatement.executeUpdate();
+            con.close();
+            return "SUCCESS";
+        }catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
+            return "FAILURE";
+        }
+    }
+
+    public ArrayList<Activity> getUserActivities(int userId) throws SQLException {
+        ArrayList <Activity> activities = new ArrayList<>();
+        Connection connection = DBConnector.createConnection();
+        String sql = "SELECT * FROM activities WHERE id_user=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, userId);
+        ResultSet result = statement.executeQuery();
+
+        while(result.next()){
+            Timestamp begining = result.getTimestamp("begining");
+            Timestamp end = result.getTimestamp("end");
+            String place = result.getString("id_place");
+            int idUser = result.getInt("id_user");
+            Activity activity = new Activity(begining, end, place, idUser);
+            activity.setId(result.getInt("id"));
+            activities.add(activity);
+        }
+        return activities;
     }
 }
