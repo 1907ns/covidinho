@@ -21,7 +21,7 @@ public class DBConnector {
         Connection con = null;
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/covidinho", "admin", "password");
+                    "jdbc:mysql://localhost:3306/covidinho", "root", "");
         } catch (SQLException e) {
             e.printStackTrace();
         }

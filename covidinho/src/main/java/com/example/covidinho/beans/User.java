@@ -99,7 +99,7 @@ public class User {
         this.isVaccinated = isVaccinated;
     }
 
-    public void isCured(){
+    public void isCured() throws ParseException {
         System.out.println(this.positiveDate);
         System.out.println(this.isPositive);
         if(getIsPositive()==1){
