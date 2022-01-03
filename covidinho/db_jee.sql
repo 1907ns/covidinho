@@ -33,6 +33,11 @@ CREATE TABLE `activities` (
   `end` datetime NOT NULL
 );
 
+CREATE TABLE `places` (
+  `id` varchar(255) PRIMARY KEY,
+  `address` varchar(255) NOT NULL
+);
+
 ALTER TABLE `friendships` ADD FOREIGN KEY (`id_user1`) REFERENCES `users` (`id`);
 
 ALTER TABLE `friendships` ADD FOREIGN KEY (`id_user2`) REFERENCES `users` (`id`);
@@ -40,5 +45,7 @@ ALTER TABLE `friendships` ADD FOREIGN KEY (`id_user2`) REFERENCES `users` (`id`)
 ALTER TABLE `notifications` ADD FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 ALTER TABLE `notifications` ADD FOREIGN KEY (`src_user`) REFERENCES `users` (`id`);
+
+ALTER TABLE `activities` ADD FOREIGN KEY (`id_place`) REFERENCES `places` (`id`);
 
 ALTER TABLE `activities` ADD FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);

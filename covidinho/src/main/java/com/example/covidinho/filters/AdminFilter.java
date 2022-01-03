@@ -2,6 +2,7 @@ package com.example.covidinho.filters;
 
 import com.example.covidinho.beans.User;
 import com.example.covidinho.servlets.LoginServlet;
+import org.json.JSONPropertyIgnore;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -29,6 +30,7 @@ public class AdminFilter implements Filter {
         } else{
             if(((User)req.getSession().getAttribute("user")).getAdmin()==1){
                 chain.doFilter(req,resp);
+                return;
             } else{
                 resp.sendRedirect("../Login.jsp");
             }

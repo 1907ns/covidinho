@@ -1,9 +1,6 @@
 package com.example.covidinho.dao;
 
-import com.example.covidinho.beans.Activity;
-import com.example.covidinho.beans.Friendship;
-import com.example.covidinho.beans.Notification;
-import com.example.covidinho.beans.User;
+import com.example.covidinho.beans.*;
 import utility.DBConnector;
 
 import java.net.http.HttpClient;
@@ -111,6 +108,26 @@ public class ActivityDao {
         }
     }
 
+    public String updateActivity(Activity activity, Activity newActivity) throws SQLException {
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
+        con = DBConnector.createConnection();
+        String query = "update activities set id_place = ?, begining = ?, end =? where id = ?";
+        preparedStatement = con.prepareStatement(query);
+        preparedStatement.setString(1, newActivity.getPlace());
+        preparedStatement.setTimestamp(2, newActivity.getBegining());
+        preparedStatement.setTimestamp(3, newActivity.getEnd());
+        preparedStatement.setInt(4, activity.getId());
+        try{
+            int i= preparedStatement.executeUpdate();
+            con.close();
+            return "SUCCESS";
+        }catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
+            return "FAILURE";
+        }
+    }
+
     public ArrayList<Activity> getUserActivities(int userId) throws SQLException {
         ArrayList <Activity> activities = new ArrayList<>();
         Connection connection = DBConnector.createConnection();
@@ -129,5 +146,28 @@ public class ActivityDao {
             activities.add(activity);
         }
         return activities;
+    }
+
+
+    public Activity getActivityById (int id) throws SQLException {
+        Connection connection = DBConnector.createConnection();
+        String sql = "SELECT * FROM activities WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+
+        ResultSet result = statement.executeQuery();
+        Activity activity = null;
+
+        if (result.next()) {
+            Timestamp begining = result.getTimestamp("begining");
+            Timestamp end = result.getTimestamp("end");
+            String place = result.getString("id_place");
+            int idUser = result.getInt("id_user");
+            activity = new Activity(begining, end, place, idUser);
+            activity.setId(result.getInt("id"));;
+        }
+        connection.close();
+        return activity;
+
     }
 }

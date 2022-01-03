@@ -1,7 +1,9 @@
 <%@ page import="com.example.covidinho.beans.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.covidinho.dao.UserDao" %>
-<%@ page import="com.example.covidinho.beans.Activity" %><%--
+<%@ page import="com.example.covidinho.beans.Activity" %>
+<%@ page import="com.example.covidinho.dao.PlaceDao" %>
+<%@ page import="com.example.covidinho.beans.Place" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
   Date: 30/12/2021
@@ -23,9 +25,7 @@
     <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
-    <script type="application/javascript" src="../jquery-ui/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../jquery-ui/jquery-ui.min.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -86,21 +86,25 @@
             <tr>
                 <th scope="col">Date de début</th>
                 <th scope="col">Date de fin</th>
-                <th scope="col">Id user</th>
-                <th scope="col">Id lieu</th>
+                <th scope="col">Utilisateur</th>
+                <th scope="col">Adresse</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
                 <%
         ArrayList<Activity> listeAct = (ArrayList<Activity>) request.getSession().getAttribute("allactivities");
-
+        PlaceDao placeDao = new PlaceDao();
+        UserDao userDao = new UserDao();
         if(listeAct.size()!=0){
             for(Activity a : listeAct){
-
+                Place p = placeDao.getPlaceById(a.getPlace());
+                User actCreator = userDao.getUserById(a.getIdUser());
 
     %>
-            <tr class="table-info"><td><%=a.getBegining()%></td><td><%=a.getEnd()%></td><td><%=a.getIdUser()%></td><td><%=a.getPlace()%></td><td><a class="btn btn-danger" href="DeleteActivityServlet?actid=<%=a.getId()%>" role="button">Supprimer</a><a class="btn btn-info" href="AccessActivityModificationServlet?actid=<%=a.getId()%>" role="button">Modifier</a></td>
+            <tr class="table-info"><td><%=a.getBegining()%></td><td><%=a.getEnd()%></td><td><%=actCreator.getUsername()%></td><td><%=p.getAddress()%></td><td><a class="btn btn-danger" href="DeleteActivityServlet?actid=<%=a.getId()%>" role="button">Supprimer</a>
+                <a class="btn btn-info" href="AccessActivityModificationServlet?actid=<%=a.getId()%>" role="button">Modifier</a>
+            </td>
             </tr>
 
                 <% } }else { %>

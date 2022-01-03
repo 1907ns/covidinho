@@ -1,8 +1,10 @@
 package com.example.covidinho.servlets;
 
 import com.example.covidinho.beans.Activity;
+import com.example.covidinho.beans.Place;
 import com.example.covidinho.beans.User;
 import com.example.covidinho.dao.ActivityDao;
+import com.example.covidinho.dao.PlaceDao;
 import com.mysql.cj.xdevapi.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -90,7 +92,7 @@ public class ActivityServlet extends HttpServlet {
             }
 
             String idAdresse = jsonObject.getString("id");
-
+            String adresse = jsonObject.getString("label");
             begining = (Date) formatter.parse(request.getParameter("begining"));
             end = (Date) formatter.parse(request.getParameter("end"));
 
@@ -102,11 +104,13 @@ public class ActivityServlet extends HttpServlet {
                 return;
             }
             User user  = (User) request.getSession().getAttribute("user");
+            Place place = new Place(idAdresse, adresse);
             Activity activity = new Activity(sqlBegining, sqlEnd, idAdresse, user.getId());
 
 
             ActivityDao activityDao = new ActivityDao();
-
+            PlaceDao placeDao = new PlaceDao();
+            String addPlace = placeDao.insertPlace(place);
             String addActivity = activityDao.insertActivity(activity, user);
 
             if(addActivity.equals("SUCCESS"))   //On success, you can display a message to user on Home page

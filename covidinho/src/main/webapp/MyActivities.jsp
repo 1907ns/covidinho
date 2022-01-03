@@ -1,6 +1,8 @@
 <%@ page import="com.example.covidinho.beans.User" %>
 <%@ page import="com.example.covidinho.beans.Activity" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.covidinho.dao.PlaceDao" %>
+<%@ page import="com.example.covidinho.beans.Place" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
   Date: 01/01/2022
@@ -86,20 +88,20 @@
             <tr>
                 <th scope="col">Date de début</th>
                 <th scope="col">Date de fin</th>
-                <th scope="col">Id lieu</th>
+                <th scope="col">Adresse</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
                 <%
         ArrayList<Activity> listeAct = (ArrayList<Activity>) request.getSession().getAttribute("activities");
-
+        PlaceDao placeDao = new PlaceDao();
         if(listeAct.size()!=0){
             for(Activity a : listeAct){
-
+                Place p = placeDao.getPlaceById(a.getPlace());
 
     %>
-            <tr class="table-info"><td><%=a.getBegining()%></td><td><%=a.getEnd()%></td><td><%=a.getPlace()%></td><td><a class="btn btn-danger" href="DeleteMyActivityServlet?actid=<%=a.getId()%>" role="button">Supprimer</a></td>
+            <tr class="table-info"><td><%=a.getBegining()%></td><td><%=a.getEnd()%></td><td><%=p.getAddress()%></td><td><a class="btn btn-danger" href="DeleteMyActivityServlet?actid=<%=a.getId()%>" role="button">Supprimer</a></td>
             </tr>
 
                 <% } }else { %>
