@@ -235,13 +235,59 @@
                             <canvas id="incidence"></canvas>
                         </div>
                     </div>
-                    <!--
                     <div class="h-50 d-flex ">
                         <div class="row align-items-center h-100 w-100 justify-content-center">
-                            <canvas id="doseVaccin"></canvas>
+                            <canvas id="nouveauCas"></canvas>
                         </div>
                     </div>
-                    -->
+                </div>
+                <div class="carousel-item h-100 ">
+                    <div class="h-50 container d-flex ">
+                        <div class="row align-items-center h-100 w-100 justify-content-center">
+                            <canvas id="testPos"></canvas>
+                        </div>
+                    </div>
+                    <div class="h-50 d-flex ">
+                        <div class="row align-items-center h-100 w-100 justify-content-center">
+                            <canvas id="positivite"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item h-100 ">
+                    <div class="h-50 container d-flex ">
+                        <div class="row align-items-center h-100 w-100 justify-content-center">
+                            <canvas id="mutation"></canvas>
+                        </div>
+                    </div>
+                    <div class="h-50 d-flex ">
+                        <div class="row align-items-center h-100 w-100 justify-content-center">
+                            <canvas id="reproduction"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item h-100 ">
+                    <div class="h-50 container d-flex ">
+                        <div class="row align-items-center h-100 w-100 justify-content-center">
+                            <canvas id="critiquesVax"></canvas>
+                        </div>
+                    </div>
+                    <div class="h-50 d-flex ">
+                        <div class="row align-items-center h-100 w-100 justify-content-center">
+                            <canvas id="hospitalisation"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item h-100 ">
+                    <div class="h-50 container d-flex ">
+                        <div class="row align-items-center h-100 w-100 justify-content-center">
+                            <canvas id="critique"></canvas>
+                        </div>
+                    </div>
+                    <div class="h-50 d-flex ">
+                        <div class="row align-items-center h-100 w-100 justify-content-center">
+                            <canvas id="occupation"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -403,14 +449,27 @@
                 }).then(function (dataFetched) {
 
                     if(idDiv in chartList){
-                        dataSet = {
-                            label: dataFetched.unite,
-                            backgroundColor: 'rgba(40,167,69,0.5)',
-                            borderColor: 'rgb(40,167,69)',
-                            fill: 'origin',
-                            data: dataFetched.values,
-                            showLine: false
+                        console.log()
+                        if(chartList[idDiv].data.datasets.length === 2){
+                            dataSet = {
+                                label: dataFetched.unite,
+                                backgroundColor: 'rgba(253,126,20,0.5)',
+                                borderColor: 'rgb(253,126,20)',
+                                fill: 'origin',
+                                data: dataFetched.values,
+                                showLine: false
+                            }
+                        }else{
+                            dataSet = {
+                                label: dataFetched.unite,
+                                backgroundColor: 'rgba(40,167,69,0.5)',
+                                borderColor: 'rgb(40,167,69)',
+                                fill: 'origin',
+                                data: dataFetched.values,
+                                showLine: false
+                            }
                         }
+
                         chartList[idDiv].data.datasets.push(dataSet)
                         chartList[idDiv].update();
                     } else {
@@ -480,13 +539,27 @@
     chartList = {}
 
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/taux_incidence.json", "incidence", "Nombre moyen de nouvelles hospitalisations quotidiennes");
-    console.log(chartList)
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/hospitalisations_moyenne_quotidienne.json", "hospitalisations", "Taux d'incidence");
-    console.log(chartList)
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/vaccins_premiere_dose.json", "doseVaccin", "Nombre de personnes vaccinées");
-    console.log(chartList)
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/vaccins_vaccines.json", "doseVaccin", "Nombre de personnes vaccinées");
-    console.log(chartList)
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/cas_positifs.json", "nouveauCas", "Nombre moyen de nouveaux cas confirmés quotidiens");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/pos_test_non_vacsi_20ans.json", "testPos", "Tests positifs chez les personnes vaccinées et non vaccinées");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/pos_test_vacsi_20ans.json", "testPos", "Tests positifs chez les personnes vaccinées et non vaccinées");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/taux_positivite.json", "positivite", "Taux de positivité");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/prop_variant_C.json", "mutation", "Évolution des mutations");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/prop_variant_A.json", "mutation", "Évolution des mutations");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/prop_variant_B.json", "mutation", "Évolution des mutations");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/facteur_reproduction.json", "reproduction", "Taux de reproduction effectif");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/sc_vacsi_20ans.json", "critiquesVax", "Nombre d'entrées en soins critiques chez les personnes vaccinées et non vaccinées");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/sc_non_vacsi_20ans.json", "critiquesVax", "Nombre d'entrées en soins critiques chez les personnes vaccinées et non vaccinées");
+
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/soins_critiques.json", "critique", "Nombre de personnes actuellement en soins critiques");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/hospitalisations.json", "hospitalisation", "Nombre de personnes actuellement hospitalisées");
+
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/taux_occupation.json", "occupation", "Taux d'occupation");
+
+
+
 
     ///---------------------------------------------------------------------------------------------------------------------------Management map
 
