@@ -213,6 +213,14 @@
         <url-pattern>/DeleteMyActivityServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddNewUserServlet</servlet-name>
+        <servlet-class>com.example.covidinho.servlets.admin.AddNewUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddNewUserServlet</servlet-name>
+        <url-pattern>/admin/AddNewUserServlet</url-pattern>
+    </servlet-mapping>
 
     <!-- Filtres -->
     <filter>

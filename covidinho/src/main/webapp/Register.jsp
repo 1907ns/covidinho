@@ -14,7 +14,7 @@
     }else{
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html class="h-100">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -29,53 +29,60 @@
 
     <title>Inscription</title>
 </head>
-<body>
-<h1 class="text-center title">Inscrivez-vous!</h1>
-<div class="container">
-    <form action="RegisterServlet" method="post" class="justify-content-center">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username"  name="username" required="" placeholder="Enter username">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required="" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="firstname">Firstname</label>
-            <input type="text" class="form-control" pattern="[A-Z a-z]*" id="firstname"  name="firstname" required="" placeholder="Enter firstname">
-        </div>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" pattern="[A-Z a-z]*" name="name" placeholder="Enter name" required="">
-        </div>
-        <div class="form-group">
-            <label for="birthdate">Birthdate</label>
-            <input type="text" class="form-control" id="birthdate" name="birthdate" required="">
-        </div>
-        <button type="submit" class="btn btn-primary">S'inscrire</button>
-    </form>
+<body class="h-100 bg-white">
+<div class="container h-100" style="margin-bottom: 10px; padding: 10px">
+    <div class="row h-100 justify-content-center align-items-center bg-light shadow">
+        <div class="col-10 col-md-8 col-lg-6">
+            <h1 class="text-center title">Inscrivez-vous!</h1>
+            <form action="RegisterServlet" method="post" class="justify-content-center ">
+                <div class="form-group">
+                    <label for="username">Pseudo</label>
+                    <input type="text" class="form-control" id="username"  name="username" required="" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password" required="" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="firstname">Prénom</label>
+                    <input type="text" class="form-control" pattern="[A-Z a-z]*" id="firstname"  name="firstname" required="" placeholder="Enter firstname">
+                </div>
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" class="form-control" id="name" pattern="[A-Z a-z]*" name="name" placeholder="Enter name" required="">
+                </div>
+                <div class="form-group">
+                    <label for="birthdate">Date de naissance</label>
+                    <input type="text" class="form-control" id="birthdate" name="birthdate" required="">
+                </div>
+                <button type="submit" class="btn btn-warning">S'inscrire</button>
+            </form>
 
-    <br>
-        <% String error = (String)request.getAttribute("errMessage");
+            <p> Déjà un Compte? <a href="Login.jsp">Connectez-vous!</a> | <a href="index.jsp">Accueil</a></p>
 
-            if(error!=null)
-            {
+            <% String error = (String)request.getAttribute("errMessage");
+
+                if(error!=null)
+                {
             %>
-    <div class='alert alert-danger' role='alert'>
-            <%= error %>
-        </div>
-            <% } %>
-        <!----------------------------------------------------------------------------->
-            <% String success = (String)request.getAttribute("succMessage");
-            if(success!=null)
-            {
-            %>
-        <div class='alert alert-success' role='alert'>
-            <%= success %>
+            <div class='alert alert-danger' role='alert'>
+                <%= error %>
             </div>
             <% } %>
-    <p> Déjà un Compte? <a href="Login.jsp">Connectez-vous!</a></p>
+            <!----------------------------------------------------------------------------->
+            <% String success = (String)request.getAttribute("succMessage");
+                if(success!=null)
+                {
+            %>
+            <div class='alert alert-success' role='alert'>
+                <%= success %>
+            </div>
+            <% } %>
+        </div>
+
+
+    </div>
+    <br>
 
     </div>
 

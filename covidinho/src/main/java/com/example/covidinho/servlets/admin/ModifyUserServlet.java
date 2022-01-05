@@ -27,12 +27,19 @@ public class ModifyUserServlet extends HttpServlet {
         String name = request.getParameter("name");
         String birthdate = request.getParameter("birthdate");
         int admin = Integer.valueOf(request.getParameter("admin"));
+
+        User activeuser = (User) request.getSession().getAttribute("user");
         UserDao userDao = new UserDao();
         String requestSent = null;
         try {
             requestSent = userDao.adminModifyUser(id, username, password, name, firstname, birthdate, admin);
             ArrayList<User> listeUser = userDao.getAllUsers();
             request.getSession().setAttribute("allusers", listeUser);
+            if(activeuser.getId()==id){
+                User user = userDao.getUserById(id);
+                user.setPassword(password); // on set le mot de passe
+                request.getSession().setAttribute("user", user);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ParseException e) {
