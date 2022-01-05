@@ -8,6 +8,7 @@ import com.example.covidinho.dao.UserDao;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class AllUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDao userDao = new UserDao();
         try {
+            response.setBufferSize(30000);
+            response.setHeader("Content-Type", "text/html");
             ArrayList<User> listeUsers = userDao.getAllUsers();
             request.getSession().setAttribute("allusers", listeUsers);
             request.getRequestDispatcher("/Users.jsp").forward(request, response);

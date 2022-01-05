@@ -1,6 +1,12 @@
 <%@ page import="com.example.covidinho.beans.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+<%
+    User user = (User) request.getSession().getAttribute("user");
+    if(user != null) {
+        response.sendRedirect("LoginServlet");
+    }else{
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,3 +62,4 @@
 
 </body>
 </html>
+<% } %>
