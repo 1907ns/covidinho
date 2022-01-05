@@ -32,7 +32,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="Home.jsp">Covidinho</a>
+    <a class="navbar-brand" href="../Home.jsp">Covidinho</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -82,13 +82,13 @@
 
 <h1 class="text-center title">Utilisateurs</h1>
 
-<div class="row justify-content-center">
-    <div class="col-auto">
+<div class="container justify-content-center">
         <table class="table table-striped table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-hover">
+            <caption>Liste des utilisateurs</caption>
             <thead>
             <tr>
-                <th scope="col">Utilisateur</th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="text-center">Utilisateur</th>
+                <th scope="col" class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -100,7 +100,7 @@
 
 
     %>
-            <tr class="table-info"><td><%=u.getUsername()%></td><td> <%if (u.getAdmin()==1){
+            <tr class="table-info"><td class="text-center"><%=u.getUsername()%></td><td class="text-center"> <%if (u.getAdmin()==1){
                 %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <%}%><a class="btn btn-info" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a></td>
             </tr>
 
@@ -128,7 +128,38 @@
             <%= success %>
         </div>
         <% } %>
-    </div>
+
+</div>
+
+<h3 class="text-center"> Ajouter un utilisateur</h3>
+<div class="container bg-light shadow" style="margin-bottom: 10px; padding: 10px">
+    <form action="AddNewUserServlet" method="post" class="justify-content-center">
+        <div class="form-group">
+            <label for="username">Pseudo</label>
+            <input type="text" class="form-control" id="username"  name="username" required="" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" name="password" required="" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="firstname">Prénom</label>
+            <input type="text" class="form-control" pattern="[A-Z a-z]*" id="firstname"  name="firstname" required="" placeholder="Enter firstname">
+        </div>
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="name" pattern="[A-Z a-z]*" name="name" placeholder="Enter name" required="">
+        </div>
+        <div class="form-group">
+            <label for="birthdate">Date de naissance</label>
+            <input type="text" class="form-control" id="birthdate" name="birthdate" required="">
+        </div>
+        <div class="form-group">
+            <label for="admin">Admin</label>
+            <input type="number" class="form-control" id="admin" name="admin" required="" max="1" min="0" >
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
 </div>
 
 </body>

@@ -20,6 +20,11 @@ public class UserDao {
         String firstname = registerBean.getFirstname();
         String name = registerBean.getName();
         String birthdate = registerBean.getBirthdate();
+        int admin =0;
+
+        if(registerBean.getAdmin()==1){
+            admin=1;
+        }
 
         //on formate la date
         DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
@@ -38,7 +43,7 @@ public class UserDao {
             preparedStatement.setString(3, firstname);
             preparedStatement.setString(4, name);
             preparedStatement.setString(5, birthdate);
-            preparedStatement.setInt(6, 0);
+            preparedStatement.setInt(6, admin);
             preparedStatement.setInt(7, 0);
 
             try{
@@ -209,6 +214,11 @@ public class UserDao {
             user.setFirstname(result.getString("firstname"));
             user.setUsername(result.getString("login"));
             user.setBirthdate(String.valueOf(result.getDate("birthdate")));
+            user.setAdmin(result.getInt("admin"));
+            user.setIsPositive(result.getInt("is_positive"));
+            user.setPositiveDate(result.getDate("positive_date"));
+            user.setIsVaccinated(result.getInt("is_vaccinated"));
+
         }
 
         connection.close();

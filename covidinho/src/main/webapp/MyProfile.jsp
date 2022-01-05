@@ -80,29 +80,29 @@
     </div>
 </nav>
 <h1 class="text-center title">Mon profil</h1>
-<div class="container">
+<div class="container bg-light shadow" style="margin-bottom: 10px; padding: 10px">
     <form action="ProfileModificationServlet" method="post" class="justify-content-center">
         <div class="form-group hide">
             <input type="hidden" type="text" class="form-control" id="userid"  value="<%=user.getId()%>" name="userid">
         </div>
         <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Pseudo</label>
             <input type="text" class="form-control" id="username"  value="<%=user.getUsername()%>" name="username" required="" placeholder="Enter username">
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Mote de passe</label>
             <input type="password" class="form-control" id="password" value="<%=user.getPassword()%>" name="password" required="" placeholder="Password">
         </div>
         <div class="form-group">
-            <label for="firstname">Firstname</label>
+            <label for="firstname">Prénom</label>
             <input type="text" class="form-control" pattern="[A-Z a-z]*" id="firstname"  value="<%=user.getFirstname()%>" name="firstname" required="" placeholder="Enter firstname">
         </div>
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Nom</label>
             <input type="text" class="form-control" id="name" pattern="[A-Z a-z]*" value="<%=user.getName()%>" name="name" placeholder="Enter name" required="">
         </div>
         <div class="form-group">
-            <label for="birthdate">Birthdate</label>
+            <label for="birthdate">Date de naissance</label>
             <input type="text" class="form-control" id="birthdate" name="birthdate" required="" value="<%=user.getBirthdate()%>">
         </div>
         <button type="submit" class="btn btn-primary">Modifier</button>
