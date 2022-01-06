@@ -101,7 +101,7 @@
 
     %>
             <tr class="table-info"><td class="text-center"><%=u.getUsername()%></td><td class="text-center"> <%if (u.getAdmin()==1){
-                %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <%}%><a class="btn btn-info" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a></td>
+                %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <a class="btn btn-info disabled" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a><% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <a class="btn btn-info" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a><%}%></td>
             </tr>
 
                 <% } }else { %>
