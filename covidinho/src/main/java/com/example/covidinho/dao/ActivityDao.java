@@ -19,7 +19,7 @@ public class ActivityDao {
         String sql ="SELECT tab1.* " +
                     "FROM activities AS tab1 JOIN activities AS tab2 ON tab1.id_place = tab2.id_place AND tab1.begining >= tab2.begining AND tab1.begining <= tab2.end AND tab2.id_user = "+id+" AND tab1.id_user!="+id +
                     " WHERE tab1.begining>=TIMESTAMPADD(DAY,-5,NOW())";
-        System.out.println(sql);
+
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet result = statement.executeQuery();
         while(result.next()){
@@ -55,10 +55,8 @@ public class ActivityDao {
             try{
                 int i= preparedStatement.executeUpdate();
             }catch (SQLIntegrityConstraintViolationException e){
-                System.out.println("FAILURE");
                 return "FAILURE";
             }
-            System.out.println("SUCCESS");
             return "SUCCESS";
         }
         catch(SQLException e)

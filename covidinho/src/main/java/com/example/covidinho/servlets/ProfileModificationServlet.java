@@ -24,7 +24,6 @@ public class ProfileModificationServlet extends HttpServlet {
         String name = request.getParameter("name");
         String birthdate = request.getParameter("birthdate");
 
-        System.out.println(birthdate);
         user.setId(id);
         user.setUsername(username);
         user.setPassword(password);

@@ -100,8 +100,7 @@ public class User {
     }
 
     public void isCured() throws ParseException {
-        System.out.println(this.positiveDate);
-        System.out.println(this.isPositive);
+
         if(getIsPositive()==1){
             java.util.Date today = new java.util.Date();
             Date dateFinConfinement = new Date(positiveDate.getTime() + (1000 * 60 * 60 * 24 * 7));

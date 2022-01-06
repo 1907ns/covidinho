@@ -49,3 +49,5 @@ ALTER TABLE `notifications` ADD FOREIGN KEY (`src_user`) REFERENCES `users` (`id
 ALTER TABLE `activities` ADD FOREIGN KEY (`id_place`) REFERENCES `places` (`id`);
 
 ALTER TABLE `activities` ADD FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+
+insert into users(login,password,firstname,name, birthdate,admin,is_positive) values ('admin','cf32e129e247adb4650ec11309eb34840b4ca896','admin','admin',CURRENT_DATE ,1,0);
