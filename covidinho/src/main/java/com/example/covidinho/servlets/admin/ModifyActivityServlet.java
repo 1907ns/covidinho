@@ -31,7 +31,6 @@ public class ModifyActivityServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getParameterMap().keySet().toString());
         request.setCharacterEncoding("UTF-8");
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
         int actId= (int) request.getSession().getAttribute("modifactid");
@@ -44,7 +43,6 @@ public class ModifyActivityServlet extends HttpServlet {
             if(request.getParameterMap().containsKey("adresse")) {
 
                 String adresse = request.getParameter("adresse");
-                System.out.println(adresse);
                 httpRequest = HttpRequest.newBuilder()
                         .GET()
                         .uri(URI.create("https://api-adresse.data.gouv.fr/search/?q=" + URLEncoder.encode(adresse, StandardCharsets.UTF_8) + "&autocomplete=0&limit=1"))
@@ -53,7 +51,6 @@ public class ModifyActivityServlet extends HttpServlet {
             } else{
                 String lat = request.getParameter("lat");
                 String lon = request.getParameter("lon");
-                System.out.println(URI.create("https://api-adresse.data.gouv.fr/reverse/?lat="+lat+"&lon="+lon+"&limit=1").toString());
                 httpRequest = HttpRequest.newBuilder()
                         .GET()
                         .uri(URI.create("https://api-adresse.data.gouv.fr/reverse/?lat="+lat+"&lon="+lon+"&limit=1"))
@@ -64,7 +61,6 @@ public class ModifyActivityServlet extends HttpServlet {
 
             JSONObject jsonObject= new JSONObject(httpResponse.body());
 
-            System.out.println(jsonObject.toString());
 
             if(jsonObject.toMap().containsKey("title")){
                 if(jsonObject.getString("title").equals("Missing query")){

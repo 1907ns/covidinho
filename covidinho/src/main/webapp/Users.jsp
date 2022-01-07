@@ -17,12 +17,12 @@
 <html>
 <head>
     <title>Admin - Utilisateurs</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script  type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
-    <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="application/javascript" src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
-    <script type="application/javascript" src="../jquery-ui/jquery-ui.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="../jquery-ui/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../jquery-ui/jquery-ui.min.css">
     <script type="application/javascript"> $(function() {
@@ -101,7 +101,7 @@
 
     %>
             <tr class="table-info"><td class="text-center"><%=u.getUsername()%></td><td class="text-center"> <%if (u.getAdmin()==1){
-                %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <%}%><a class="btn btn-info" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a></td>
+                %> <a class="btn btn-info disabled" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <a class="btn btn-info disabled" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a><% }else{ %><a class="btn btn-info" href="DeleteUserServlet?userid=<%=u.getId()%>" role="button">Supprimer</a> <a class="btn btn-info" href="AccessUserModificationServlet?userid=<%=u.getId()%>" role="button">Modifier</a><%}%></td>
             </tr>
 
                 <% } }else { %>
@@ -132,7 +132,7 @@
 </div>
 
 <h3 class="text-center"> Ajouter un utilisateur</h3>
-<div class="container bg-light shadow" style="margin-bottom: 10px; padding: 10px">
+<div class="container bg-light shadow" style="margin-bottom: 10px">
     <form action="AddNewUserServlet" method="post" class="justify-content-center">
         <div class="form-group">
             <label for="username">Pseudo</label>
