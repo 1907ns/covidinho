@@ -151,3 +151,5 @@ covidinho/target/covidinho-1.0-SNAPSHOT/WEB-INF/web.xml
 covidinho/target/classes/com/example/covidinho/servlets/admin/AddNewUserServlet.class
 covidinho/target/covidinho-1.0-SNAPSHOT/bootstrap/css/glyphicon.css
 covidinho/target/covidinho-1.0-SNAPSHOT/WEB-INF/classes/com/example/covidinho/servlets/admin/AddNewUserServlet.class
+covidinho/target/covidinho-1.0-SNAPSHOT/scripts/bootstrap.js
+covidinho/target/covidinho-1.0-SNAPSHOT/scripts/jquery.js
