@@ -64,6 +64,9 @@ public class ActivityServlet extends HttpServlet {
             JSONObject jsonObject= new JSONObject(httpResponse.body());
 
 
+            response.setBufferSize(100000);
+            response.setHeader("Content-Type", "text/html");
+
             if(jsonObject.toMap().containsKey("title")){
                 if(jsonObject.getString("title").equals("Missing query")){
                     request.setAttribute("errPlace", "Champs vide");

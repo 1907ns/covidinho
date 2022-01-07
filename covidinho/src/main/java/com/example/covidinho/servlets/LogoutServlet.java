@@ -18,6 +18,8 @@ public class LogoutServlet extends HttpServlet {
         if (session != null) {
             session.removeAttribute("user");
 
+            response.setBufferSize(100000);
+            response.setHeader("Content-Type", "text/html");
             RequestDispatcher dispatcher = request.getRequestDispatcher("Login.jsp");
             dispatcher.forward(request, response);
         }

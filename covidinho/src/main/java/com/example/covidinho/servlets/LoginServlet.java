@@ -46,7 +46,8 @@ public class LoginServlet extends HttpServlet {
                 String message = "Login ou mot de passe invalide";
                 request.setAttribute("errMessage", message);
             }
-
+            response.setBufferSize(100000);
+            response.setHeader("Content-Type", "text/html");
             RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
             dispatcher.forward(request, response);
 

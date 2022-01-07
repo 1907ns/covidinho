@@ -25,7 +25,7 @@ public class AllUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDao userDao = new UserDao();
         try {
-            response.setBufferSize(30000);
+            response.setBufferSize(100000);
             response.setHeader("Content-Type", "text/html");
             ArrayList<User> listeUsers = userDao.getAllUsers();
             request.getSession().setAttribute("allusers", listeUsers);
