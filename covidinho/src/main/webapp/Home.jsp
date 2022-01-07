@@ -156,7 +156,7 @@
                         <div class="form-group row" id="place">
                             <div class="col" >
                                 <label for="adress" class="form-label"><p class="text-white">Adresse</p></label>
-                                <input class="form-control adress" type="text" id="adress" name="adresse" autocomplete="off"/>
+                                <input class="form-control adress adressInput" type="text" id="adress" name="adresse" autocomplete="off"/>
                             </div>
                         </div>
                         <% String errorPlace = (String)request.getAttribute("errPlace");
@@ -335,6 +335,13 @@
             $("#place").html("<div class=\"col\" ><label for=\"adress\" class=\"form-label\"><p class=\"text-white\">Adresse</p></label> <input class=\"form-control adress\" type=\"text\" id=\"adress\" name=\"adresse\" autocomplete=\"off\"></div><script>initAutoComplete()</\script>");
             $('#placeFound').html("<p class=\"text-white invisible pr-3 pl-3\">Aucune Correspondance</p>")
             $("#submit").prop('disabled', false);
+            mapInit()
+            map.eachLayer(function(layer) {
+                if (!!layer.toGeoJSON) {
+                    map.removeLayer(layer);
+                }
+            });
+            L.map('carte').setView([48.692054, 6.184417], 16);
         }
     })
 
@@ -343,6 +350,13 @@
             $("#place").html("<div class=\"col\"><label for=\"lat\" class=\"form-label\"><p class=\"text-white\">Latitude</p></label> <input class=\"form-control adress\" type=\"number\" id=\"lat\" name=\"lat\" step=\"0.001\"></div><div class=\"col\" ><label for=\"lon\" class=\"form-label\"><p class=\"text-white\">Longitude</p></label> <input class=\"form-control adress\" type=\"number\" id=\"lon\" name=\"lon\" step=\"0.001\"></div><script>enableJqueryForLatAndLong()</\script>");
             $('#placeFound').html("<p class=\"text-white  pr-3 pl-3\">Aucune Correspondance</p>")
             $("#submit").prop('disabled', true);
+            mapInit()
+            map.eachLayer(function(layer) {
+                if (!!layer.toGeoJSON) {
+                    map.removeLayer(layer);
+                }
+            });
+            L.map('carte').setView([48.692054, 6.184417], 16);
         }
     })
 
@@ -353,6 +367,12 @@
             $('#placeFound').html("<div class=\"col\" ><label for=\"adress\" class=\"form-label\"><p class=\"text-white\">Lieu(x) trouvé(s)</p></label><select class=\"form-select form-control \" disabled id=\"SearchResult\" aria-label=_\"Elliot\"></select> </div>")
             $("#submit").prop('disabled', true);
             mapInit()
+            map.eachLayer(function(layer) {
+                if (!!layer.toGeoJSON) {
+                    map.removeLayer(layer);
+                }
+            });
+            L.map('carte').setView([48.692054, 6.184417], 16);
         }
     })
 
@@ -378,20 +398,36 @@
         $('#lat').on('input', function() {
             if($("#lon").val()!=""){
                 fetchPositionFromCoords($('#lat').val(), $('#lon').val())
+                mapSetView($('#lat').val(), $('#lon').val());
             }
         });
 
         $('#lon').on('input', function() {
             if($("#lat").val()!=""){
                 fetchPositionFromCoords($('#lat').val(), $('#lon').val())
+                mapSetView($('#lat').val(), $('#lon').val());
             }
         });
+
+        $("#adress").off("change")
+    }
+
+    function mapSetView(lat, lon){
+        map.eachLayer(function(layer) {
+            if (!!layer.toGeoJSON) {
+                map.removeLayer(layer);
+            }
+        });
+
+        var marker = L.marker([lat, lon]).addTo(map);
+
+        map.setView([lat, lon], 16);
     }
 
     function initAutoComplete() {
+
         $('.adress').autoComplete({
             formatResult: function (item) {
-                console.log(item);
                 return {
                     value: item.id,
                     text: item.label,
@@ -416,12 +452,23 @@
                 searchPost: function (resultFromServer) {
                     list = []
                     resultFromServer.forEach(element => list.push(element.properties));
-                    console.log(list)
                     return list;
-                }
-            }
+                },
+            },
         });
+
+        $('.adress').on('autocomplete.select', function (evt, item) {
+            $.ajax(
+                'https://api-adresse.data.gouv.fr/search/',
+                {
+                    data: {'q': item.label, 'type': "housenumber"}
+                }
+            ).done(function (res) {
+                mapSetView(res.features[0].geometry.coordinates[1],res.features[0].geometry.coordinates[0])
+            });
+        })
     }
+
     initAutoComplete()
 
     //------------------------------------------------------------------------------Data (Chart.js) management
@@ -566,8 +613,6 @@
     var placeFound = []
     var myLayer
 
-
-
     var map = L.map('carte').setView([48.692054, 6.184417], 16);
     L.tileLayer('http://b.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.fr">OpenStreetMap France</a>',
@@ -596,10 +641,11 @@
     }
 
     function mapInit() {
+        $("#adress").off("change")
+
         $("#SearchResult").change(function () {
             var select = $(this)
             setPlaceFromSelect(select.val())
-
         })
 
 
@@ -620,7 +666,7 @@
                     polygon_geojson: 1,
                     limit: 5,
                     addressdetails:1,
-
+                    countrycodes: "fr"
                 });
 
                 fetch('http://nominatim.openstreetmap.org/search?' + parmasQuery).then(function(response) {
