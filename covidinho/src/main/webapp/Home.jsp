@@ -218,7 +218,7 @@
                 </svg>
             </div> -->
             <div class="carousel-inner h-100 col d-flex align-items-center ">
-                <div class="carousel-item active h-100 ">
+                <div class="carousel-item h-100 ">
                     <div class="h-50 container d-flex ">
                         <div class="row align-items-center h-100 w-100 justify-content-center">
                             <canvas id="hospitalisations"></canvas>
@@ -230,8 +230,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item h-100 ">
-                    <div class="h-50 container d-flex ">
+                <div class="carousel-item active h-100 ">
+                    <div class="h-50 container  d-flex ">
                         <div class="row align-items-center h-100 w-100 justify-content-center">
                             <canvas id="incidence"></canvas>
                         </div>
@@ -586,8 +586,8 @@
 
     chartList = {}
 
-    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/taux_incidence.json", "incidence", "Nombre moyen de nouvelles hospitalisations quotidiennes");
-    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/hospitalisations_moyenne_quotidienne.json", "hospitalisations", "Taux d'incidence");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/taux_incidence.json", "incidence", "Taux d'incidence");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/hospitalisations_moyenne_quotidienne.json", "hospitalisations", "Nombre moyen de nouvelles hospitalisations quotidiennes");
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/vaccins_premiere_dose.json", "doseVaccin", "Nombre de personnes vaccinées");
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/vaccins_vaccines.json", "doseVaccin", "Nombre de personnes vaccinées");
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/cas_positifs.json", "nouveauCas", "Nombre moyen de nouveaux cas confirmés quotidiens");
@@ -596,7 +596,7 @@
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/taux_positivite.json", "positivite", "Taux de positivité");
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/prop_variant_C.json", "mutation", "Évolution des mutations");
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/prop_variant_A.json", "mutation", "Évolution des mutations");
-    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/prop_variant_B.json", "mutation", "Évolution des mutations");
+    fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/prop_variant_A0C0.json", "mutation", "Évolution des mutations");
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/facteur_reproduction.json", "reproduction", "Taux de reproduction effectif");
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/sc_vacsi_20ans.json", "critiquesVax", "Nombre d'entrées en soins critiques chez les personnes vaccinées et non vaccinées");
     fetchIcidence("https://data.widgets.dashboard.covid19.data.gouv.fr/sc_non_vacsi_20ans.json", "critiquesVax", "Nombre d'entrées en soins critiques chez les personnes vaccinées et non vaccinées");
