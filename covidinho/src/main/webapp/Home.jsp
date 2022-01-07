@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
+<%@page buffer="8192kb" autoFlush="true" %>
 <%@ page import="com.example.covidinho.beans.User" %><%--
   Created by IntelliJ IDEA.
   User: enescobar
