@@ -29,8 +29,11 @@ AYATA Enes - FAUGIER Elliot
   5. Utilisation de datepicker pour le renseignement de la date de naissance d'un utilisateur lors de l'inscription
   6. Utilisation de [https://adresse.data.gouv.fr/api-doc/adresse](https://adresse.data.gouv.fr/api-doc/adresse) pour valider les lieux/adresses lors d'une
   création d'activité.
-  6. L’utilisation d’openstreetmap pour afficher géographiquement les lieux et pouvoir les définir lors d'une création d'activité.
-  7. L'utilisation du plug-in [Chart.js](https://www.chartjs.org/) et des données fournies par [https://www.gouvernement.fr/info-coronavirus/carte-et-donnees](https://www.gouvernement.fr/info-coronavirus/carte-et-donnees)
+  7. Utilisation de Boostrap AutoComplete [https://bootstrap-autocomplete.readthedocs.io/en/latest/](https://bootstrap-autocomplete.readthedocs.io/en/latest/) pour faire de l'autoCompletion (exploitation de l'api [https://adresse.data.gouv.fr/api-doc/adresse](https://adresse.data.gouv.fr/api-doc/adresse))
+  8. Utilisation de [https://nominatim.org/](https://nominatim.org/) pour obtenir des informations sur certains lieux
+  9. Utilisation de la librairie Leaflet (([https://leafletjs.com/examples/quick-start/](https://leafletjs.com/examples/quick-start/))) pour proposer une carte intéractive
+  10. Utilisation des serveurs de tiles d’openstreetmap france ([https://www.openstreetmap.fr/](https://www.openstreetmap.fr/)) pour peupler la carte d'images
+  11. L'utilisation du plug-in [Chart.js](https://www.chartjs.org/) et des données fournies par [https://www.gouvernement.fr/info-coronavirus/carte-et-donnees](https://www.gouvernement.fr/info-coronavirus/carte-et-donnees)
   pour afficher, sous forme de graphiques, les différentes statistiques relatives au Covid-19 et à la vaccination contre celui-ci pour nos utilisateurs.
 
 ## Stack technique
