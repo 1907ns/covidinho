@@ -378,12 +378,14 @@
         $('#lat').on('input', function() {
             if($("#lon").val()!=""){
                 fetchPositionFromCoords($('#lat').val(), $('#lon').val())
+                map.setView([$('#lat').val(), $('#lon').val()]);
             }
         });
 
         $('#lon').on('input', function() {
             if($("#lat").val()!=""){
                 fetchPositionFromCoords($('#lat').val(), $('#lon').val())
+                map.setView([$('#lat').val(), $('#lon').val()]);
             }
         });
     }
@@ -391,7 +393,6 @@
     function initAutoComplete() {
         $('.adress').autoComplete({
             formatResult: function (item) {
-                console.log(item);
                 return {
                     value: item.id,
                     text: item.label,
@@ -416,7 +417,6 @@
                 searchPost: function (resultFromServer) {
                     list = []
                     resultFromServer.forEach(element => list.push(element.properties));
-                    console.log(list)
                     return list;
                 }
             }
@@ -566,8 +566,6 @@
     var placeFound = []
     var myLayer
 
-
-
     var map = L.map('carte').setView([48.692054, 6.184417], 16);
     L.tileLayer('http://b.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.fr">OpenStreetMap France</a>',
@@ -599,7 +597,6 @@
         $("#SearchResult").change(function () {
             var select = $(this)
             setPlaceFromSelect(select.val())
-
         })
 
 
@@ -620,7 +617,7 @@
                     polygon_geojson: 1,
                     limit: 5,
                     addressdetails:1,
-
+                    countrycodes: "fr"
                 });
 
                 fetch('http://nominatim.openstreetmap.org/search?' + parmasQuery).then(function(response) {
