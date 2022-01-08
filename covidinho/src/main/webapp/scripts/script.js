@@ -56,13 +56,11 @@ function fetchPositionFromCoords(lat, lon){
 }
 
 function enableJqueryForLatAndLong(){
-    console.log("test")
     $('#lat').on('input', function() {
         if($("#lon").val()!=""){
             fetchPositionFromCoords($('#lat').val(), $('#lon').val())
         }
     });
-    console.log("test")
     $('#lon').on('input', function() {
         if($("#lat").val()!=""){
             fetchPositionFromCoords($('#lat').val(), $('#lon').val())
@@ -73,7 +71,6 @@ function enableJqueryForLatAndLong(){
 function initAutoComplete() {
     $('.adress').autoComplete({
         formatResult: function (item) {
-            console.log(item);
             return {
                 value: item.id,
                 text: item.label,
@@ -98,7 +95,6 @@ function initAutoComplete() {
             searchPost: function (resultFromServer) {
                 list = []
                 resultFromServer.forEach(element => list.push(element.properties));
-                console.log(list)
                 return list;
             }
         }

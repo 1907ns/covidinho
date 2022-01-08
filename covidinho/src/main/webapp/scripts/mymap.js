@@ -22,7 +22,6 @@ function setPlaceFromSelect(index){
         }
     });
 
-    console.log(placeSelected)
 
     $("#lat").val(placeSelected.lat)
     $("#lon").val(placeSelected.lon)
@@ -45,7 +44,6 @@ function mapInit() {
 
         placeSearched = $('#placeSearched').val()
         if(placeSearched!=""){
-            console.log(placeSearched)
 
 
 
@@ -72,7 +70,6 @@ function mapInit() {
                         } else{
                             select.empty()
                             for(singlePLaceFound in placeFound){
-                                console.log(placeFound[singlePLaceFound])
 
                                 string = placeFound[singlePLaceFound]["display_name"]
 

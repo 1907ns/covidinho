@@ -497,7 +497,6 @@
                 }).then(function (dataFetched) {
 
                     if(idDiv in chartList){
-                        console.log()
                         if(chartList[idDiv].data.datasets.length === 2){
                             dataSet = {
                                 label: dataFetched.unite,
@@ -631,7 +630,6 @@
             }
         });
 
-        console.log(placeSelected)
 
         $("#lat").val(placeSelected.lat)
         $("#lon").val(placeSelected.lon)
@@ -655,7 +653,6 @@
 
             placeSearched = $('#placeSearched').val()
             if(placeSearched!=""){
-                console.log(placeSearched)
 
 
 
@@ -682,7 +679,6 @@
                             } else{
                                 select.empty()
                                 for(singlePLaceFound in placeFound){
-                                    console.log(placeFound[singlePLaceFound])
 
                                     string = placeFound[singlePLaceFound]["display_name"]
 
