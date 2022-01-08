@@ -16,11 +16,10 @@ public class ActivityDao {
     public List<Activity> getUsersMet(int id) throws SQLException, ParseException {
         ArrayList<Activity> activities = new ArrayList<Activity>();
         Connection connection = DBConnector.createConnection();
-        String sql ="SELECT tab1.* " +
-                    "FROM activities AS tab1 JOIN activities AS tab2 ON tab1.id_place = tab2.id_place AND tab1.begining >= tab2.begining AND tab1.begining <= tab2.end AND tab2.id_user = "+id+" AND tab1.id_user!="+id +
-                    " WHERE tab1.begining>=TIMESTAMPADD(DAY,-5,NOW())";
-
+        String sql = "SELECT tab1.* FROM activities AS tab1 JOIN activities AS tab2 ON tab1.id_place = tab2.id_place AND (tab1.begining >= tab2.begining OR tab1.begining <= tab2.end) AND tab2.id_user = ? AND tab1.id_user!= ? WHERE tab1.begining>=TIMESTAMPADD(DAY,-5,NOW())";
         PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.setInt(2, id);
         ResultSet result = statement.executeQuery();
         while(result.next()){
             Timestamp begining = result.getTimestamp("begining");
