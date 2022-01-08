@@ -136,7 +136,7 @@
     </nav>
     <div class="container-fluid p-0 bg-light flex-fill fill d-flex justify-content-center shadow-lg">
         <div class="col-8 bg-primary border-0 border-dark d-flex ">
-            <div class="container align-content-center justify-content-center">
+            <div class="container-fluid d-flex flex-column align-content-center justify-content-center">
                 <div>
                     <div class="pt-5">
                         <div class="form-group row ">
@@ -201,8 +201,8 @@
                         </div>
                         <% } %>
                     </form>
-                    <div id="carte" class="h-50"></div>
                 </div>
+                <div id="carte" class="h-50"></div>
             </div>
 
         </div>
