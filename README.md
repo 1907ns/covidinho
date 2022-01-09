@@ -1,6 +1,9 @@
 # Covidinho
 AYATA Enes - FAUGIER Elliot
 
+## Lien
+L'application est déployée à l'adresse suivante: [https://ambroise.elio.ovh/covidinho/covidinho/](https://ambroise.elio.ovh/covidinho/covidinho/)
+
 ## Fonctionnalités obligatoires réalisées
   1. Création de compte
   2. Connexion / Déconnexion
